@@ -1,0 +1,145 @@
+
+ h1{
+    font-size:2em;
+    margin:.67em 0;
+}
+ *{
+    -webkit-box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    box-sizing:border-box;
+   font-family: Roboto, sans-serif;
+}
+ h1{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+ h1{
+    font-size:38px;
+    line-height:44px;
+    margin-top:20px;
+}
+ .w-row:before,.w-row:after{
+    content:" ";
+    display:table;
+}
+ .w-row:after{
+    clear:both;
+}
+ .w-col{
+    position:relative;
+    float:left;
+    width:100%;
+    min-height:1px;
+    padding-left:10px;
+    padding-right:10px;
+}
+ .w-col-3{
+    width:25%;
+}
+ @media screen and (max-width:767px){
+     .w-row{
+        margin-left:0;
+        margin-right:0;
+    }
+     .w-col{
+        width:100%;
+        left:auto;
+        right:auto;
+    }
+}
+ @media screen and (max-width:479px){
+     .w-col{
+        width:100%;
+    }
+}
+ /* h1{
+    margin-top:15px;
+    margin-bottom:15px;
+    font-size:42px;
+    line-height:54px;
+    font-weight:400;
+} */
+ .divider{
+    height:1px;
+    margin-top:20px;
+    margin-bottom:15px;
+    background-color:#eee;
+}
+ .stylelabel{
+    color:#bebebe;
+    font-size:12px;
+    line-height:20px;
+    font-weight:500;
+    text-transform:uppercase;
+}
+ .tagwrapper{
+    margin-top:35px;
+    margin-bottom:35px;
+    padding-right:5px;
+    padding-left:5px;
+}
+ .row{
+    margin-bottom:50px;
+}
+ .numbercardnumber{
+    margin-top:0px;
+    margin-bottom:0px;
+    color:#fff;
+    font-weight:300;
+}
+ .tagline{
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+.numbercardcurrency{
+    font-size:14px;
+    font-weight:600;
+}
+ .basiccolumn{
+    padding-right:5px;
+    padding-left:5px;
+}
+.numbercardcontent1{
+    padding:22px 30px;
+    border-radius:8px;
+    background-color: #2a2a72;
+    background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+    margin-bottom: 20px;
+    
+}
+ .numbercardprogresswrapper{
+    display:-webkit-box;
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    -webkit-box-pack:justify;
+    -webkit-justify-content:space-between;
+    -ms-flex-pack:justify;
+    justify-content:space-between;
+}
+ .numbercarddivider{
+    height:1px;
+    margin-top:10px;
+    margin-bottom:14px;
+    background-color:hsla(0, 0%, 100%, .15);
+}
+ .numbercarddollars{
+    color:hsla(0, 0%, 100%, .8);
+    font-size:16px;
+    line-height:24px;
+}
+ .numbercardprogress{
+    color:#fff;
+    text-align:right;
+}
+ @media (max-width: 991px){
+     .numbercardnumber{
+        font-size:30px;
+    }
+     .numbercard{
+        padding-top:12px;
+        padding-bottom:16px;
+    }
+}

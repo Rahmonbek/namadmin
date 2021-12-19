@@ -1,0 +1,109 @@
+.formAdmin{
+    width:100%;
+    height: max-content;
+    background-color:#FFFFFF;
+    border-radius: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    text-align: left;
+    padding: 20px 30px;
+    margin-bottom: 50px;
+}
+.formAdmin h4{
+    font-family: 'Quicksand',sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 70px;
+    position: relative;
+}
+.formAdmin h4::before{
+    content:'';
+    position: absolute;
+    top: 200%;
+    left: 0;
+    width: 70px;
+    height: 1px;
+    background-color:rgba(0,0,0,0.2);
+}
+.inputFormBtn{
+    background-color:#1A86D0;
+    border:none;
+    margin-right: 13px !important;
+}
+
+.inputFormBtn1{
+    background-color:#1A86D0;
+    border:none;
+}
+
+@media screen and (max-width:566px) {
+    .inputFormBtn{
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        background-color:#1A86D0;
+        border:none;
+        margin-right: 113px;
+    }
+    
+    .inputFormBtn1{
+        background-color:#1A86D0;
+        border:none;
+        width: 100%;
+    }
+    .adminTop{
+        font-size:28px
+    }
+    .formAdmin{
+        width: 100% !important;
+    }
+}
+@media screen and (min-width:567px) {
+    .inputFormBtn{
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+        background-color:#1A86D0;
+        border:none;
+        margin-right: 113px;
+    }
+    
+    .inputFormBtn1{
+        background-color:#1A86D0;
+        border:none;
+        width: 100%;
+    }
+    .adminTop{
+        font-size:28px
+    }
+    .formAdmin{
+        width: 100% !important;
+    }
+}
+@media screen and (min-width:1200px) {
+    .formAdmin{
+        width:90%;
+        height: max-content;
+        background-color:#FFFFFF;
+        border-radius: 5px;
+        box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+        text-align: left;
+        padding: 20px 30px;
+        margin-bottom: 50px;
+    }
+    .inputFormBtn{
+        width: auto;
+        background-color:#1A86D0;
+        border:none;
+        margin-right: 180px;
+        display:inline-block
+    }
+    
+    .inputFormBtn1{
+        background-color:#1A86D0;
+        border:none;
+        width: auto;
+        display:inline-block;
+        margin-top:-10px
+
+    }
+}

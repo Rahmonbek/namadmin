@@ -1,0 +1,25 @@
+::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+   background: rgb(5,65,116);
+    background: linear-gradient(90deg, rgba(5,65,116,1) 0%, rgba(0,43,73,1) 100%);
+}
+.formInput{font-size:14px; border-radius: 3px; padding:5px 10px;}
+.formInput::placeholder {
+	color: #bfbfbf;
+	opacity: 0.9;
+  }
+.btnFormIn{position: fixed; bottom:20vh; right:0px;}
