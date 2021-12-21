@@ -4,10 +4,7 @@ import { Switch, Link } from "react-router-dom";
 import RouteWithSubRoutes from "./utils/RouteWithSubRoutes";
 import styles from "./css/Menu.module.css";
 
-import {
-  FaCrown,
-  FaComments,
-} from "react-icons/fa";
+import { FaCrown, FaComments } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import Top from "./pages/Top";
@@ -16,6 +13,7 @@ import { Menu } from "antd";
 import { AppstoreOutlined } from "@ant-design/icons";
 import { BiNews } from "react-icons/bi";
 import { FaRibbon } from "react-icons/fa";
+import { IoDocumentTextSharp } from "react-icons/io5";
 import { isArray } from "lodash";
 import GLOBAL from "./host/Global";
 import { Redirect } from "react-router-dom";
@@ -46,15 +44,20 @@ const Home = ({ routes }) => {
       name: "Tadbirlar",
       icon: <FaRibbon />,
     },
-  
-   
+
     {
       id: 18,
       path: "/home/murojaatlar/uz",
       name: "Murojaatlar",
       icon: <FaComments />,
     },
-    ];
+    {
+      id: 19,
+      path: "/home/hujjatlar/uz",
+      name: "Hujjatlar",
+      icon: <IoDocumentTextSharp />,
+    },
+  ];
   useEffect(() => {
     window.addEventListener("resize", resize.bind(this));
     resize();
@@ -71,7 +74,7 @@ const Home = ({ routes }) => {
       setCollapsed(false);
     }
   };
-  return window.localStorage.getItem('token') !== null ? (
+  return window.localStorage.getItem("token") !== null ? (
     <div>
       {loading === false ? (
         <Loader />
@@ -92,9 +95,7 @@ const Home = ({ routes }) => {
                         zIndex: "10000000",
                       }}
                     >
-                      
                       <div className={styles.topMenu}>
-                   
                         <span className={styles.crown}>
                           <FaCrown style={{ fontSize: "30px" }} />
                         </span>
@@ -146,7 +147,7 @@ const Home = ({ routes }) => {
                           zIndex: "100000",
                         }}
                       >
-                   <Top/>
+                        <Top />
                       </Col>
                       <Col
                         lg={12}

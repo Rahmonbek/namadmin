@@ -5,6 +5,7 @@ import Tadbirlar from "./pages/Tadbirlar";
 import Dashboard from "./pages/Dashboard";
 import Yangiliklar from "./pages/Yangiliklar";
 import Murojatlar from "./pages/Murojat";
+import Documents from "./pages/documents";
 const routes = [
   {
     path: "/login",
@@ -26,8 +27,7 @@ const routes = [
       //   path: "/home/oquvchilar/uz",
       //   component: Oquvchilar,
       // },
-    
-    
+
       {
         path: "/home/yangiliklar/uz",
         component: Yangiliklar,
@@ -36,13 +36,15 @@ const routes = [
         path: "/home/rahbariyat/uz",
         component: Rahbariyat,
       },
-    
-    
+
       {
         path: "/home/tadbirlar/uz",
         component: Tadbirlar,
       },
-    
+      {
+        path: "/home/hujjatlar/uz",
+        component: Documents,
+      },
     ],
   },
 ];
