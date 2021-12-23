@@ -14,7 +14,7 @@ export default class Youtube extends Component {
     }
     addVideo =()=>{
         var a=document.getElementById('you').value
-        var videos=[a.slice(a.lastIndexOf('/')+1)]
+        var videos=[a.slice(a.lastIndexOf('/')+1),a.slice(a.lastIndexOf('/')+1)]
         
         var config={youtube_videos:videos}
         console.log(config)
@@ -60,7 +60,7 @@ export default class Youtube extends Component {
           <Loader />
         ) : (<div>
             <div>
-                <form>
+                <form  className='formnew'>
                     <input type="url" placeholder='Videoni linkini kiriting' id="you" style={{width:'100%', display:'block', fontSize:'20px'}}/>
                 <br/>
                 <Button type="primary" onClick={this.addVideo} htmlType='button'>Videoni qo'shish</Button>
