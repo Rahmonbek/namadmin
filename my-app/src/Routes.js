@@ -5,9 +5,9 @@ import Tadbirlar from "./pages/Tadbirlar";
 import Dashboard from "./pages/Dashboard";
 import News from "./pages/News";
 import Murojatlar from "./pages/Murojat";
-import Documents from "./pages/documents";
 import Tumanlar from "./pages/Tumanlar";
 import Youtube from "./pages/Youtube";
+import Hujjatlar from "./pages/Hujjatlar";
 const routes = [
   {
     path: "/login",
@@ -49,7 +49,7 @@ const routes = [
       },
       {
         path: "/home/hujjatlar/uz",
-        component: Documents,
+        component: Hujjatlar,
       },
       {
         path: "/home/tumanlar/uz",

@@ -38,7 +38,7 @@ export default class Dashboard extends Component {
   }
   getSchool = () => {
     axios.get(`${url}/boshqarma/`).then((res) => {
-     console.log(res.data[0].params)
+   
       this.setState({
         school: res.data[0],
         params: res.data[0].params,
@@ -73,9 +73,6 @@ export default class Dashboard extends Component {
     const formData = new FormData();
     this.setState({ loading: true });
 
-    if (this.state.params !== null) {
-      formData.append("params", this.state.params);
-    }
     if (this.state.domain !== null) {
       formData.append("domain", this.state.domain);
     }
@@ -167,6 +164,18 @@ export default class Dashboard extends Component {
         }})
       .then((res) => {
         this.getSchool();
+        axios
+        .patch(`${url}/boshqarma/${1}/`, {params:this.state.params}, {
+  
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+           'Authorization': `Token ${window.localStorage.getItem("token")}`
+          }}).then(res=>{
+  
+            message.success("Ma'lumot qo'shildi");
+                
+          })
+  
         message.success("Ma'lumot qo'shildi");
       })
       .catch((err) => {
