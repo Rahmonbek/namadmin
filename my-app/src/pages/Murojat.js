@@ -34,7 +34,7 @@ editButK=(id, key)=>{
   this.deleteMurojat(id, key)
 }
 getMurojat=()=>{
-  axios.get(`${url}/murojaat/${Global.id}`).then((res)=>{
+  axios.get(`${url}/murojaat/`).then((res)=>{
    var butD=[]
    var butK=[]
     res.data.map(item=>{
