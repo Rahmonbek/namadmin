@@ -966,7 +966,7 @@ src={
               >
                 Boshqarma joylashgan manzilni kiriting
               </h4>
-              {/* <YMaps query={{ lang: "uz_Uz" }}>
+              <YMaps query={{ lang: "uz_Uz" }}>
                 <Map
                   onClick={this.onMapClick}
                   width="100%"
@@ -1007,7 +1007,7 @@ src={
                   <RouteButton options={{ float: "right" }} />
                   <ZoomControl options={{ float: "left" }} />
                 </Map>
-              </YMaps> */}
+              </YMaps>
               </div></div>
         )
                 :<Redirect to="/login"/>}</div>

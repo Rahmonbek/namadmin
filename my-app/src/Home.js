@@ -8,14 +8,14 @@ import { FaCrown, FaComments } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import Top from "./pages/Top";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col,} from "react-bootstrap";
 import { Menu } from "antd";
 import { AppstoreOutlined } from "@ant-design/icons";
 import { BiNews } from "react-icons/bi";
 import { FaRibbon } from "react-icons/fa";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { isArray } from "lodash";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink  } from "react-router-dom";
 import Loader from "./pages/LoaderHome";
 const Home = ({ routes }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -127,7 +127,7 @@ const Home = ({ routes }) => {
                                   icon={item.icon}
                                   className={styles.menuitem}
                                 >
-                                  <Link to={item.path}>{item.name}</Link>
+                                  <NavLink activeStyle={{color:'blue'}} to={item.path}>{item.name}</NavLink>
                                 </Menu.Item>
                               );
                             })

@@ -1,3 +1,4 @@
+import { Button } from 'antd';
 import axios from 'axios';
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap';
@@ -17,7 +18,7 @@ export default class Youtube extends Component {
       }
       getSchool = () => {
         axios.get(`${url}/boshqarma/`).then((res) => {
-         console.log(res.data[0].params)
+         
           this.setState({
             school: res.data[0],
            
@@ -35,13 +36,21 @@ export default class Youtube extends Component {
             <div>
                  {
         window.localStorage.getItem('token')?
-        this.state.loading === true ? (
+        this.state.loading? (
           <Loader />
-        ) : (<div><Row>{
+        ) : (<div>
+            <div>
+                <form>
+                    <input type="url" placeholder='Videoni linkini kiriting' style={{width:'100%', }}/>
+                <Button variant="primary">Videoni qo'shish</Button>
+                </form>
+            </div>
+            <Row>{
             this.state.school!==null?
             this.state.school.youtube_videos.map((item,key)=>{
-                return(<Col lg={4} md={6} sm={12}>
+                return(<Col lg={3} md={4} sm={6} style={{padding:'20px'}}>
                 <YouTube
+                style={{width:'100%'}}
   video={item.slice(item.lastIndexOf('/'))}                  // defaults -> null
   id={String(key)}                       // defaults -> null
   className="you"                // defaults -> null
