@@ -16,10 +16,11 @@ import {
   RouteButton,
   TrafficControl,
 } from "react-yandex-maps";
+import { Redirect } from "react-router-dom";
 
 export default class Dashboard extends Component {
   state = {
-    loading: false,
+    loading: true,
     school: null,
     images: {},
     input: true,
@@ -37,11 +38,11 @@ export default class Dashboard extends Component {
   }
   getSchool = () => {
     axios.get(`${url}/boshqarma/`).then((res) => {
-      console.log(res.data)
+     console.log(res.data[0].params)
       this.setState({
-        school: res.data,
-        params: res.data.params,
-        domain: res.data.domain,
+        school: res.data[0],
+        params: res.data[0].params,
+        domain: res.data[0].domain,
         loading: false,
       });
     }).catch(err=>{
@@ -118,8 +119,8 @@ export default class Dashboard extends Component {
       formData.append("video", this.state.images.video);
     }
 
-    if (this.state.images.address) {
-      formData.append("address", this.state.images.address);
+    if (this.state.images.manzil) {
+      formData.append("manzil", this.state.images.manzil);
     }
 
     if (this.state.images.video2text) {
@@ -158,8 +159,14 @@ export default class Dashboard extends Component {
     if (!!this.state.images.phone) {
       formData.append("phone", this.state.images.phone);
     }
+    console.log(window.localStorage.getItem("token"))
     axios
-      .put(`${url}/boshqarma/`, formData)
+      .patch(`${url}/boshqarma/${1}/`, formData, {
+
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+         'Authorization': `Token ${window.localStorage.getItem("token")}`
+        }})
       .then((res) => {
         this.getSchool();
         message.success("Ma'lumot qo'shildi");
@@ -179,7 +186,10 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        {this.state.loading === true ? (
+
+        {
+        window.localStorage.getItem('token')?
+        this.state.loading === true ? (
           <Loader />
         ) : (
           <div>
@@ -244,11 +254,11 @@ export default class Dashboard extends Component {
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="address"
+                          name="manzil"
                           type="text"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.address
+                              ? this.state.school.manzil
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -510,9 +520,9 @@ export default class Dashboard extends Component {
                       lg={4}
                     >
                       <video
-                        controls
-                        autoplay
-                        muted
+                        controls={true}
+                        autoPlay={true}
+                        muted={true}
                         src={
                           this.state.school !== null
                             ? this.state.school.video1 !== null
@@ -521,7 +531,7 @@ export default class Dashboard extends Component {
                             : ""
                         }
                         style={{ width: "70px" }}
-                      />
+                      ></video>
                     </Col>
                   </Row>
                   <Row style={{ marginTop: "20px" }}>
@@ -557,9 +567,9 @@ export default class Dashboard extends Component {
                       lg={4}
                     >
                       <video
-controls
-autoplay
-muted
+controls={true}
+autoPlay={true}
+muted={true}
 src={
                           this.state.school !== null
                             ? this.state.school.video2 !== null
@@ -568,7 +578,7 @@ src={
                             : ""
                         }
                         style={{ width: "70px" }}
-                      />
+                        ></video>
                     </Col>
                   </Row>
                   
@@ -641,9 +651,9 @@ src={
                       lg={4}
                     >
                       <video
-                     controls
-                     autoplay
-                     muted
+                     controls={true}
+                     autoPlay={true}
+                     muted={true}
                         src={
                           this.state.school !== null
                             ? this.state.school.video3 !== null
@@ -652,7 +662,7 @@ src={
                             : ""
                         }
                         style={{ width: "70px" }}
-                      />
+                        ></video>
                     </Col>
                   </Row>
                   
@@ -940,8 +950,8 @@ src={
                 Ma'lumotlarni qo'shish
               </Button>
             </Form>
-          </div>
-        )}
+        
+        
                   <br/>
                   <br/>
                   <br/>
@@ -958,7 +968,7 @@ src={
               >
                 Boshqarma joylashgan manzilni kiriting
               </h4>
-              <YMaps query={{ lang: "uz_Uz" }}>
+              {/* <YMaps query={{ lang: "uz_Uz" }}>
                 <Map
                   onClick={this.onMapClick}
                   width="100%"
@@ -999,10 +1009,10 @@ src={
                   <RouteButton options={{ float: "right" }} />
                   <ZoomControl options={{ float: "left" }} />
                 </Map>
-              </YMaps>
-            </div>
-
-      </div>
+              </YMaps> */}
+              </div></div>
+        )
+                :<Redirect to="/login"/>}</div>
     );
   }
 }

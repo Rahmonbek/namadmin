@@ -67,10 +67,7 @@ const Home = ({ routes }) => {
   useEffect(() => {
     window.addEventListener("resize", resize.bind(this));
     resize();
-    axios.get(`${url}/school-by-admin/${GLOBAL.user}`).then((res) => {
-      setSchool(res.data);
-      setLoading(true);
-    });
+   
   }, []);
 
   const resize = () => {

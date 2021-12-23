@@ -5,6 +5,7 @@ import style from "../css/Verify.module.css";
 import { Link, Redirect } from "react-router-dom";
 import { url } from "../host/Host";
 import axios from "axios"
+import { message } from "antd";
 export default class Login extends Component {
   state = {
     login: false,
@@ -17,8 +18,12 @@ export default class Login extends Component {
   var password=document.getElementById("password").value
   var config={username, password}
 axios.post(`${url}/auth/login/`, config).then(res=>{
-  console.log(res.data, {username, password})
-}).catch(err=>{console.log(err)})
+  this.setState({login:true})
+  window.localStorage.setItem("token",res.data.key)
+}).catch(err=>{
+  message.error('Login yoki parol xato iltimos tekshirib qaytatdan kiriting')
+}
+  )
   };
 
   render() {
