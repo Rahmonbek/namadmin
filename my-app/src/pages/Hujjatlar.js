@@ -16,16 +16,22 @@ export default class Hujjatlar extends Component {
     getHujjat = () =>{
         axios.get(`${url}/hujjatlar/`).then((res) => {
          
-            this.setState({
-              hujjat: res.data,
-              loading: false,
-            });
+            // this.setState({
+            //   hujjat: res.data,
+            //   loading: false,
+            // });
           }).catch(err=>{
             
             console.log(err)
           });
         
     };
+    addHujjat=()=>{
+      var name=document.getElementById('name').value()
+      var type=document.getElementById('type').value()
+      var link=document.getElementById('link').value()
+     var config={name, type, link}
+    }
    
     render() {
         return (
