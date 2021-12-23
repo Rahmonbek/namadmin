@@ -33,10 +33,10 @@ export default class News extends Component {
     };
   }
 
-  matnKorish = (text) => {
+  matnKorish = (description) => {
     this.setState({
       showMatn: true,
-      text: text,
+      description: description,
     });
   };
   openModal = () => {
@@ -48,7 +48,7 @@ export default class News extends Component {
   closeMatn = () => {
     this.setState({
       showMatn: false,
-      text: "",
+      description: "",
     });
   };
 
@@ -58,12 +58,12 @@ export default class News extends Component {
       edit: null,
       image: null,
       imageUrl: null,
-      date: [],
+      date_added: [],
       time: [],
     });
     document.getElementById("formBasicimage").value = "";
     document.getElementById("formBasictext").value = "";
-    document.getElementById("formBasictitle").value = "";
+    document.getElementById("formBasicname").value = "";
   };
   editYangilik = (key) => {
     axios
@@ -75,10 +75,10 @@ export default class News extends Component {
       })
       .then((res) => {
         console.log(res.data);
-        document.getElementById("formBasictext").value = res.data.text;
-        document.getElementById("formBasictitle").value = res.data.title;
-        document.getElementById("formBasicaddress").value = res.data.address;
-        document.getElementById("formBasicdate").value = res.data.date;
+        document.getElementById("formBasictext").value = res.data.description;
+        document.getElementById("formBasicname").value = res.data.name;
+
+        document.getElementById("formBasicdate").value = res.data.date_added;
 
         this.setState({
           edit: res.data.id,
@@ -104,20 +104,17 @@ export default class News extends Component {
     });
     let formData = new FormData();
     formData.append(
-      "title",
-      document.getElementById("formBasictitle").value ?? ""
+      "name",
+      document.getElementById("formBasicname").value ?? ""
     );
+
     formData.append(
-      "address",
-      document.getElementById("formBasicaddress").value ?? ""
-    );
-    formData.append(
-      "date",
+      "date_added",
       document.getElementById("formBasicdate").value ?? ""
     );
 
     formData.append(
-      "text",
+      "description",
       document.getElementById("formBasictext").value ?? ""
     );
 
@@ -224,16 +221,16 @@ export default class News extends Component {
         setTimeout(() => this.searchInput.select(), 100);
       }
     },
-    render: (text) =>
+    render: (description) =>
       this.state.searchedColumn === dataIndex ? (
         <Highlighter
           highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
           searchWords={[this.state.searchText]}
           autoEscape
-          textToHighlight={text ? text.toString() : ""}
+          textToHighlight={description ? description.toString() : ""}
         />
       ) : (
-        text
+        description
       ),
   });
 
@@ -307,33 +304,28 @@ export default class News extends Component {
       },
       {
         title: "Yangilik nomi",
-        dataIndex: "title",
-        key: "title",
-        ...this.getColumnSearchProps("title"),
+        dataIndex: "name",
+        key: "name",
+        ...this.getColumnSearchProps("name"),
       },
-      {
-        title: "Manzili",
-        dataIndex: "address",
-        key: "address",
-        ...this.getColumnSearchProps("address"),
-      },
+
       {
         title: "Sanasi",
-        dataIndex: "date",
-        key: "date",
-        ...this.getColumnSearchProps("date"),
+        dataIndex: "date_added",
+        key: "date_added",
+        ...this.getColumnSearchProps("date_added"),
       },
 
       {
         title: "Yangilik matni",
-        dataIndex: "text",
-        key: "text",
-        render: (text) => {
+        dataIndex: "description",
+        key: "description",
+        render: (description) => {
           return (
             <Button
               type="primary"
               onClick={() => {
-                this.matnKorish(text);
+                this.matnKorish(description);
               }}
             >
               Matnni ko'ring
@@ -396,7 +388,7 @@ export default class News extends Component {
               onCancel={this.closeMatn}
               footer={false}
             >
-              <p>{this.state.text}</p>
+              <p>{this.state.description}</p>
             </Modal>
             <Modal
               title="Yangilik"
@@ -405,13 +397,13 @@ export default class News extends Component {
               footer={false}
             >
               <Form>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+                <Form.Group className="mb-3" controlId="formBasicname">
                   <Form.Label>Yangilik sarlavhasi</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    defaultValue={this.state.title}
-                    name="title"
+                    defaultValue={this.state.name}
+                    name="name"
                     required
                     type="text"
                     placeholder="Yangilik sarlavhasi"
@@ -423,8 +415,8 @@ export default class News extends Component {
                   <br />
                   <Form.Control
                     className="formInput"
-                    defaultValue={this.state.date}
-                    name="date"
+                    defaultValue={this.state.date_added}
+                    name="date_added"
                     required
                     type="date"
                     placeholder="mm/dd/yy"
