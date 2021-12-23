@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import { url } from '../host/Host'
 import Loader from './Loader'
 
-export default class Hujjatlar extends React.Component {
+export default class Hujjatlar extends Component {
     state={
         hujjatlar:null,
         loading:true,
