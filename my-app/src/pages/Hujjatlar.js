@@ -5,21 +5,23 @@ import { url } from '../host/Host'
 import Loader from './Loader'
 
 export default class Hujjatlar extends Component {
+  
     state={
-        hujjatlar:null,
+        hujjat:null,
         loading:true,
-    };
+    }
     componentDidMount() {
         this.getHujjat();
       };
     getHujjat = () =>{
         axios.get(`${url}/hujjatlar/`).then((res) => {
-   
+         
             this.setState({
-            //   hujjatlar: res.data,
+              hujjat: res.data,
               loading: false,
             });
           }).catch(err=>{
+            
             console.log(err)
           });
         
