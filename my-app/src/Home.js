@@ -15,11 +15,8 @@ import { BiNews } from "react-icons/bi";
 import { FaRibbon } from "react-icons/fa";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { isArray } from "lodash";
-import GLOBAL from "./host/Global";
 import { Redirect } from "react-router-dom";
-import axios from "axios";
 import Loader from "./pages/LoaderHome";
-import { url } from "./host/Host";
 const Home = ({ routes }) => {
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -29,6 +26,12 @@ const Home = ({ routes }) => {
       id: 1,
       path: "/home/dashboard/uz", // the url
       name: "Dashboard",
+      icon: <AppstoreOutlined />, // name that appear in Sidebar
+    },
+    {
+      id: 2,
+      path: "/home/youtube/uz", // the url
+      name: "Youtube",
       icon: <AppstoreOutlined />, // name that appear in Sidebar
     },
     // { id: 2, path: "/home/admin/uz", name: "Maktab", icon: <UserOutlined /> },
