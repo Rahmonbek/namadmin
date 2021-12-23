@@ -1,213 +1,491 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import {
+  createYangilik,
+  deleteYangilik,
+  editYangilik,
+  getYangilik,
+} from "../host/Config";
+import { Table, Input, Modal, Button, Space, message } from "antd";
+import Highlighter from "react-highlight-words";
+import { Form } from "react-bootstrap";
+import { SearchOutlined } from "@ant-design/icons";
+import { url } from "../host/Host";
+import axios from "axios";
+import ImageDemo from "./ImageDemo";
+import GLOBAL from "../host/Global";
+import Loader from "./Loader";
 
-import { Modal, Form, Container, Button,Col,Row} from 'react-bootstrap';
-import styles from '../css/news.module.css'
-import new1 from '../img/new1.jpg'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import MUIDataTable from "mui-datatables";
 export default class News extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+      Yangilik: [],
+      searchText: "",
+      searchedColumn: "",
+      textF: "",
+      show: false,
+      showMatn: false,
+      image: null,
+      imageUrl: "",
+      edit: null,
+      previewImage: false,
+    };
+  }
 
-  state = {
-     selectedFile:null,
-    yangilik: {},
-    edit: null,
-news1:{},
-    schedules: [
-        {
-            nomi: 'Maktabda so`nggi qo`ng`iroq ',
-            sana: '04.06.2021',
-            rasm: <img src={new1} style={{width:'100px'}}/>,
-            matn: 'vvvvvv vvvvvvvvvvvvv vvvvvvvvvvv',
-        },
-        {
-          nomi: 'Maktabda so`nggi qo`ng`iroq ',
-          sana: '04.06.2021',
-          rasm: <img src={new1} style={{width:'100px'}}/>,
-          matn: 'vvvvvvvvvv vvvvvvvvvvvvv vvvvvvvvvvv',
-        },
-        {
-          nomi: 'Maktabda so`nggi qo`ng`iroq ',
-          sana: '04.06.2021',
-          rasm: <img src={new1} style={{width:'100px'}}/>,
-          matn: 'vvvvvvvvvv vvvvvvvvvvvvv vvvvvvvvvvv',
-        },
-        {
-          nomi: 'Maktabda so`nggi qo`ng`iroq ',
-          sana: '04.06.2021',
-          rasm: <img src={new1} style={{width:'100px'}}/>,
-          matn: 'vvvvvvvvvv vvvvvvvvvvvvv vvvvvvvvvvv',
-        },
-        {
-          nomi: 'Maktabda so`nggi qo`ng`iroq ',
-          sana: '04.06.2021',
-          rasm: <img src={new1} style={{width:'100px'}}/>,
-          matn: 'vvvvvvvvvv vvvvvvvvvvvvv vvvvvvvvvvv',
-        }
-    ]
-}
-SaveYangilikTable = () => {
-    var nomi = document.getElementById('formBasicNomi').value
-    var sana = document.getElementById('formBasicSanasi').value
-    var rasm = document.getElementById('formBasicRasmi').value
-    var matn = document.getElementById('formBasicMatni').value
-    
+  matnKorish = (text) => {
+    this.setState({
+      showMatn: true,
+      text: text,
+    });
+  };
+  openModal = () => {
+    this.setState({
+      show: true,
+    });
+  };
 
-    var schedule = {
-       nomi,
-        sana,
-        rasm,
-        matn,
-        
-    }
+  closeMatn = () => {
+    this.setState({
+      showMatn: false,
+      text: "",
+    });
+  };
 
-    var yangiliktable = this.state.schedules
+  closeModal = () => {
+    this.setState({
+      show: false,
+      edit: null,
+      image: null,
+      imageUrl: null,
+      date: [],
+      time: [],
+    });
+    document.getElementById("formBasicimage").value = "";
+    document.getElementById("formBasictext").value = "";
+    document.getElementById("formBasictitle").value = "";
+  };
+  editYangilik = (key) => {
+    axios
+      .get(`${url}/news/${key}`, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Token ${window.localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        document.getElementById("formBasictext").value = res.data.text;
+        document.getElementById("formBasictitle").value = res.data.title;
+        document.getElementById("formBasicaddress").value = res.data.address;
+        document.getElementById("formBasicdate").value = res.data.date;
 
-    if(this.state.edit==null){
-        yangiliktable.push(schedule)
-    }
-    else{
-        yangiliktable[this.state.edit] = schedule
         this.setState({
-            yangilik: {},
-            edit: null
-        })
-    }
-    this.setState({
-        schedules: yangiliktable
-    })
-    this.reset()
-}
-reset=()=>{
-     document.getElementById('formBasicNomi').value=''
-     document.getElementById('formBasicSanasi').value=''
-     document.getElementById('formBasicRasmi').value=''
-     document.getElementById('formBasicMatni').value=''
-}
-DeleteYangilikTable = (id) => {
-    var yangiliktable = this.state.schedules
-    yangiliktable.splice(id, 1)
-    this.setState({
-        schedules: yangiliktable
-    })
-}
-handleImage=event=>{
-this.setState({
-  selectedFile:event.target.files
-})
-console.log(event.target.files[0].name)
-}
-    render() {
-      const { schedules, show } = this.state
-      const columns = [
-        {
-          name: "nomi",
-          label: "Nomi",
-          options: {
-            filter: true,
-            sort: false,
-          },
-        },
-        {
-          name: "sana",
-          label: "Sana",
-          options: {
-            filter: true,
-            sort: false,
-          },
-        },
-        {
-          name: 'rasm',
-          label: "Rasm",
-          options: {
-            filter: true,
-            sort: false,
-          },
-        },
-        {
-          name: "matn",
-          label: "Matn",
-          options: {
-            filter: true,
-            sort: false,
-          },
-        },
-        {
-          name: "O'zgartirish",
-          options: {
-            filter: false,
-            sort: false,
-            empty: true,
-            customBodyRenderLite: () => {
-              return (
-                <a href="#1"><Button className={styles.inputFormBtn1}>
-                  O'zgartirish
-                </Button></a>
-              );
-            }
-          }
-          
-        },
-      ];
-      const options = {
-        filterType: 'checkbox',
-        responsive: 'scroll',
-        onRowClick: (rowData, rowState) => {   
-         this.setState({
-           news1:{
-             nomi:rowData[0],
-             sana:rowData[1],
-             rasm:rowData[2],
-             matn:rowData[3],
-           },
-           edit:rowState.rowIndex
+          edit: res.data.id,
+          imageUrl: res.data.image,
+          previewImage: true,
+        });
+      })
+      .catch((err) => console.log(err));
+    this.openModal();
+  };
+  customRequest = (e) => {
+    let image = e.target.files[0];
 
-         }) 
-        },
-      };
-        return (
-            <div>
-                <Container fluid>               
-                  <Row>
-                    <Col lg={12}>
-                      <h1>Yangiliklar</h1>
-                    </Col>
-                    <Col lg={12}>
-                  <div className={styles.formAdmin} style={{width:'100%',position:'sticky',top:'400px'}} id="1">
-                          <h4>O'qituvchi kiritish</h4>
-                              <Form id="formAdmint">
-                                  <Form.Group controlId="formBasicNomi">
-                                    <Form.Control className="formInput" type="text" placeholder="Yangilik sarlavhasi" defaultValue={this.state.news1.nomi}/>
-                                  </Form.Group>
-                                  <Form.Group controlId="formBasicSanasi">
-                                    <Form.Control className="formInput" type="text" placeholder="Sanasi" defaultValue={this.state.news1.sana}/>
-                                  </Form.Group>
-                                  <Form.Group controlId="formBasicRasmi">
-                                    <Form.Control className="formInput" type="file" placeholder="Rasm kiriting" defaultValue={this.state.news1.rasm} onChange={(e)=>this.handleImage(e)}/>
-                                  </Form.Group>
-                                  <Form.Group controlId="formBasicMatni">
-                                    <Form.Control className="formInput" type="text" placeholder="Matnini kiriting" defaultValue={this.state.news1.matn}/>
-                                  </Form.Group>
-                                  <a href="#2"><Button variant="primary" className={styles.inputFormBtn} onClick={this.SaveYangilikTable}>
-                                  O'zgarishlarni saqlash
-                                  </Button></a>
-                                  <Button variant="primary" className={styles.inputFormBtn1} onClick={this.reset}>
-                                                  Bekor qilish
-                                  </Button>   
-                              </Form>
-                    </div>
-                  </Col>
-                  <Col lg={12}>
-                      <MUIDataTable
-                        id="2"
-                        title={"Yangiliklar ro'yxati"}
-                        data={this.state.schedules}
-                        columns={columns}
-                        options={options}
-                       />
-                  </Col>
-                  </Row>      
-                </Container>
-            </div>
-        )
+    this.setState({
+      image: image,
+      imageUrl: image,
+      previewImage: false,
+    });
+  };
+  createYangilik = () => {
+    this.setState({
+      loading: true,
+    });
+    let formData = new FormData();
+    formData.append(
+      "title",
+      document.getElementById("formBasictitle").value ?? ""
+    );
+    formData.append(
+      "address",
+      document.getElementById("formBasicaddress").value ?? ""
+    );
+    formData.append(
+      "date",
+      document.getElementById("formBasicdate").value ?? ""
+    );
+
+    formData.append(
+      "text",
+      document.getElementById("formBasictext").value ?? ""
+    );
+
+    if (this.state.edit !== null) {
+      if (this.state.image !== null) {
+        formData.append("image", this.state.image ?? "");
+      }
+      editYangilik(formData, this.state.edit)
+        .then((res) => {
+          message.success("Yangilik o'zgartirildi");
+          this.getYangilik();
+        })
+        .catch((err) => {
+          this.setState({
+            loading: false,
+          });
+          message.error("Yangilik o'zgartirilmadi");
+        });
+      this.getYangilik();
+    } else {
+      formData.append("image", this.state.image ?? "");
+      createYangilik(formData)
+        .then((res) => {
+          message.success("Yangilik saqlandi");
+          this.getYangilik();
+        })
+        .catch((err) => {
+          this.setState({
+            loading: false,
+          });
+          message.error("Yangilik saqlanmadi");
+        });
+      this.getYangilik();
     }
+    this.closeModal();
+  };
+  getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div style={{ padding: 8 }}>
+        <Input
+          ref={(node) => {
+            this.searchInput = node;
+          }}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() =>
+            this.handleSearch(selectedKeys, confirm, dataIndex)
+          }
+          style={{ marginBottom: 8, display: "block" }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => this.handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => this.handleReset(clearFilters)}
+            size="small"
+            style={{ width: 90 }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({ closeDropdown: false });
+              this.setState({
+                searchText: selectedKeys[0],
+                searchedColumn: dataIndex,
+              });
+            }}
+          >
+            Filter
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined style={{ color: filtered ? "#1890ff" : undefined }} />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex]
+        ? record[dataIndex]
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase())
+        : "",
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => this.searchInput.select(), 100);
+      }
+    },
+    render: (text) =>
+      this.state.searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{ backgroundColor: "#ffc069", padding: 0 }}
+          searchWords={[this.state.searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    this.setState({
+      searchText: selectedKeys[0],
+      searchedColumn: dataIndex,
+    });
+  };
+
+  handleReset = (clearFilters) => {
+    clearFilters();
+    this.setState({ searchText: "" });
+  };
+
+  getYangilik = () => {
+    getYangilik()
+      .then((res) => {
+        var Yangilik = res.data;
+        for (let i = 0; i < Yangilik.length; i++) {
+          Yangilik[i].key = i + 1;
+        }
+        this.setState({
+          Yangilik: res.data,
+          loading: false,
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+        });
+      });
+  };
+  deleteYangilik = (id) => {
+    this.setState({
+      loading: true,
+    });
+    deleteYangilik(id)
+      .then((res) => {
+        message.success("Yangilik o'chirildi");
+        this.getYangilik();
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+        });
+        message.error("Yangilik o'chiirilmadi");
+      });
+  };
+  componentDidMount() {
+    this.getYangilik();
+  }
+  render() {
+    const columns = [
+      {
+        title: "Id",
+        dataIndex: "key",
+        key: "key",
+        ...this.getColumnSearchProps("key"),
+      },
+      {
+        title: "Rasm",
+        dataIndex: "image",
+        key: "image",
+        width: "20%",
+
+        render: (image) => {
+          return <img src={image} style={{ width: "100%" }} alt="rasm" />;
+        },
+      },
+      {
+        title: "Yangilik nomi",
+        dataIndex: "title",
+        key: "title",
+        ...this.getColumnSearchProps("title"),
+      },
+      {
+        title: "Manzili",
+        dataIndex: "address",
+        key: "address",
+        ...this.getColumnSearchProps("address"),
+      },
+      {
+        title: "Sanasi",
+        dataIndex: "date",
+        key: "date",
+        ...this.getColumnSearchProps("date"),
+      },
+
+      {
+        title: "Yangilik matni",
+        dataIndex: "text",
+        key: "text",
+        render: (text) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(text);
+              }}
+            >
+              Matnni ko'ring
+            </Button>
+          );
+        },
+      },
+      {
+        title: "O'zgartirish",
+        dataIndex: "id",
+        key: "id",
+        render: (id) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.editYangilik(id);
+              }}
+            >
+              O'zgartirish
+            </Button>
+          );
+        },
+      },
+      {
+        title: "O'chirish",
+        dataIndex: "id",
+        key: "keyId",
+        render: (id) => {
+          return (
+            <Button
+              type="danger"
+              onClick={() => {
+                this.deleteYangilik(id);
+              }}
+            >
+              O'chirish
+            </Button>
+          );
+        },
+      },
+    ];
+    return (
+      <div>
+        {this.state.loading === true ? (
+          <Loader />
+        ) : (
+          <div>
+            {" "}
+            <br />
+            <Button type="primary" onClick={this.openModal}>
+              Yangilik yaratish
+            </Button>
+            <br />
+            <br />
+            <Table columns={columns} dataSource={this.state.Yangilik} />
+            <Modal
+              title="Yangilik matni"
+              visible={this.state.showMatn}
+              onCancel={this.closeMatn}
+              footer={false}
+            >
+              <p>{this.state.text}</p>
+            </Modal>
+            <Modal
+              title="Yangilik"
+              visible={this.state.show}
+              onCancel={this.closeModal}
+              footer={false}
+            >
+              <Form>
+                <Form.Group className="mb-3" controlId="formBasictitle">
+                  <Form.Label>Yangilik sarlavhasi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.title}
+                    name="title"
+                    required
+                    type="text"
+                    placeholder="Yangilik sarlavhasi"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicdate">
+                  <Form.Label>Yangilik sanasi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.date}
+                    name="date"
+                    required
+                    type="date"
+                    placeholder="mm/dd/yy"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicimage">
+                  <Form.Label>Yangilik rasmi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={this.customRequest}
+                    name="image"
+                    required
+                    type="file"
+                  />
+                  <br />
+                  <br />
+                  {this.state.previewImage
+                    ? ImageDemo(this.state.imageUrl)
+                    : ""}
+                </Form.Group>
+
+                <Form.Group
+                  controlId="formBasictext"
+                  className="mb-3"
+                  style={{ width: "100%" }}
+                >
+                  <Form.Label>Yangilik matni</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="text"
+                    placeholder="Yangilik matnini yozing"
+                    style={{ height: "200px" }}
+                  />
+                </Form.Group>
+                <br />
+                <br />
+                <Button
+                  type="danger"
+                  htmlType="button"
+                  onClick={this.closeModal}
+                >
+                  Bekor qilish
+                </Button>
+                <Button
+                  type="primary"
+                  htmlType="button"
+                  onClick={this.createYangilik}
+                >
+                  Yaratish
+                </Button>
+              </Form>
+            </Modal>
+          </div>
+        )}
+      </div>
+    );
+  }
 }
