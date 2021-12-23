@@ -109,8 +109,8 @@ export default class Dashboard extends Component {
       formData.append("video3", this.state.images.video3);
     }
 
-    if (this.state.images.imagep) {
-      formData.append("imagep", this.state.images.imagep);
+    if (this.state.images.image_p) {
+      formData.append("image_p", this.state.images.image_p);
     }
 
     if (this.state.images.video) {
@@ -121,35 +121,35 @@ export default class Dashboard extends Component {
       formData.append("manzil", this.state.images.manzil);
     }
 
-    if (this.state.images.video2text) {
-      formData.append("video2text", this.state.images.video2text);
+    if (this.state.images.video2_text) {
+      formData.append("video2_text", this.state.images.video2_text);
     }
 
-    if (this.state.images.video3text) {
-      formData.append("video3text", this.state.images.video3text);
+    if (this.state.images.video3_text) {
+      formData.append("video3_text", this.state.images.video3_text);
     }
 
-    if (this.state.images.textpism) {
-      formData.append("textpism", this.state.images.textpism);
+    if (this.state.images.text_p_ism) {
+      formData.append("text_p_ism", this.state.images.text_p_ism);
     }
 
-    if (this.state.images.textp) {
-      formData.append("textp", this.state.images.textp);
+    if (this.state.images.text_p) {
+      formData.append("text_p", this.state.images.text_p);
     }
 
-    if (this.state.images.textafzallik1) {
-      formData.append("textafzallik1", this.state.images.textafzallik1);
+    if (this.state.images.text_afzallik_1) {
+      formData.append("text_afzallik_1", this.state.images.text_afzallik_1);
     }
 
-    if (this.state.images.textafzallik2) {
-      formData.append("textafzallik2", this.state.images.textafzallik2);
+    if (this.state.images.text_afzallik_2) {
+      formData.append("text_afzallik_2", this.state.images.text_afzallik_2);
     }
-    if (this.state.images.textafzallik3) {
-      formData.append("textafzallik3", this.state.images.textafzallik3);
+    if (this.state.images.text_afzallik_3) {
+      formData.append("text_afzallik_3", this.state.images.text_afzallik_3);
     }
 
-    if (this.state.images.textafzallik4) {
-      formData.append("textafzallik4", this.state.images.textafzallik4);
+    if (this.state.images.text_afzallik_4) {
+      formData.append("text_afzallik_4", this.state.images.text_afzallik_4);
     }
     if (this.state.images.name) {
       formData.append("name", this.state.images.name);
@@ -599,11 +599,11 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="video2text"
+                          name="video2_text"
                           as="textarea"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.video2text
+                              ? this.state.school.video2_text
                               : ""
                           }
                           placeholder="Matn kiriting..."
@@ -684,10 +684,10 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="video3text"
+                          name="video3_text"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.video3text
+                              ? this.state.school.video3_text
                               : ""
                           }
                           as="textarea"
@@ -718,7 +718,7 @@ src={
                         <Form.Control
                           className="formInput"
                           accept=".jpg, .jpeg, .png"
-                          name="imagep"
+                          name="image_p"
                           type="file"
                           onChange={this.customRequest}
                         />
@@ -734,8 +734,8 @@ src={
                         alt="..."
                         src={
                           this.state.school !== null
-                            ? this.state.school.imagep !== null
-                              ? this.state.school.imagep
+                            ? this.state.school.image_p !== null
+                              ? this.state.school.image_p
                               : this.state.img
                             : ""
                         }
@@ -762,11 +762,11 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textpism"
+                          name="text_p_ism"
                           type="text"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textpism
+                              ? this.state.school.text_p_ism
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -793,13 +793,13 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textp"
+                          name="text_p"
                           as="textarea"
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textp
+                              ? this.state.school.text_p
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -826,13 +826,13 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textafzallik1"
+                          name="text_afzallik_1"
                           as="textarea"
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textafzallik1
+                              ? this.state.school.text_afzallik_1
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -859,13 +859,13 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textafzallik2"
+                          name="text_afzallik_2"
                           as="textarea"
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textafzallik2
+                              ? this.state.school.text_afzallik_2
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -892,13 +892,13 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textafzallik3"
+                          name="text_afzallik_3"
                           as="textarea"
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textafzallik3
+                              ? this.state.school.text_afzallik_3
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -925,13 +925,13 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="textafzallik4"
+                          name="text_afzallik_4"
                           as="textarea"
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.textafzallik4
+                              ? this.state.school.text_afzallik_4
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
