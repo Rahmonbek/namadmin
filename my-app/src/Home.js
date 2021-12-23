@@ -57,6 +57,12 @@ const Home = ({ routes }) => {
       name: "Hujjatlar",
       icon: <IoDocumentTextSharp />,
     },
+    {
+      id: 20,
+      path: "/home/tumanlar/uz",
+      name: "Tumanlar",
+      icon: <IoDocumentTextSharp />,
+    },
   ];
   useEffect(() => {
     window.addEventListener("resize", resize.bind(this));

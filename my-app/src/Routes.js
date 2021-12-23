@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Yangiliklar from "./pages/Yangiliklar";
 import Murojatlar from "./pages/Murojat";
 import Documents from "./pages/documents";
+import Tumanlar from "./pages/Tumanlar";
 const routes = [
   {
     path: "/login",
@@ -44,6 +45,10 @@ const routes = [
       {
         path: "/home/hujjatlar/uz",
         component: Documents,
+      },
+      {
+        path: "/home/tumanlar/uz",
+        component: Tumanlar,
       },
     ],
   },
