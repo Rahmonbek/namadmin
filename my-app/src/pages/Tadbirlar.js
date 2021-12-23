@@ -61,15 +61,21 @@ text:text
     document.getElementById('formBasictitle').value=""
 }
 editEvent=(key)=>{
-  axios.get(`${url}/event/${GLOBAL.id}`).then((res)=>{ 
-    document.getElementById('formBasictext').value = res.data[key].text; 
-    document.getElementById('formBasictitle').value = res.data[key].title;
-    document.getElementById('formBasicaddress').value = res.data[key].address;
-    document.getElementById('formBasicdate').value = res.data[key].date;
-    document.getElementById('formBasictime').value = res.data[key].time;
+  axios.get(`${url}/events/${key}`, {
+
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+     'Authorization': `Token ${window.localStorage.getItem("token")}`
+    }}).then((res)=>{ 
+      console.log(res.data)
+    document.getElementById('formBasictext').value = res.data.text; 
+    document.getElementById('formBasictitle').value = res.data.title;
+    document.getElementById('formBasicaddress').value = res.data.address;
+    document.getElementById('formBasicdate').value = res.data.date;
+    document.getElementById('formBasictime').value = res.data.time;
     this.setState({
-      edit: res.data[key].id,
-      imageUrl: res.data[key].image,
+      edit: res.data.id,
+      imageUrl: res.data.image,
       previewImage: true
     }) 
   }).catch(err=>console.log(err))
@@ -110,10 +116,7 @@ formData.append(
   "text",
   document.getElementById("formBasictext").value ?? ""
 );
-formData.append(
-  "school",
-  Number(GLOBAL.id)
-);
+
 
 
 if(this.state.edit!==null) {
@@ -289,7 +292,9 @@ deleteEvent=(id)=>{
                 title: 'Vaqti',
                 dataIndex: 'time',
                 key: 'time',
-                ...this.getColumnSearchProps('time'),
+               render:(time)=>{
+                 return(time)
+               }
               },
               {
                 title: 'Tadbir matni',
@@ -303,10 +308,10 @@ deleteEvent=(id)=>{
               },
               {
                 title: 'O\'zgartirish',
-                dataIndex: 'key',
-                key: 'key',
-                render:(key)=>{
-                    return( <Button type="primary" onClick={()=>{this.editEvent(Number(key)-1)}}>O'zgartirish</Button>
+                dataIndex: 'id',
+                key: 'id',
+                render:(id)=>{
+                    return( <Button type="primary" onClick={()=>{this.editEvent(id)}}>O'zgartirish</Button>
                     )
                 }
 
@@ -315,8 +320,8 @@ deleteEvent=(id)=>{
                 title: 'O\'chirish',
                 dataIndex: 'id',
                 key: 'keyId',
-                render:(key)=>{
-                    return( <Button type="danger" onClick={()=>{this.deleteEvent(key)}}>O'chirish</Button>
+                render:(id)=>{
+                    return( <Button type="danger" onClick={()=>{this.deleteEvent(id)}}>O'chirish</Button>
                     )
                 }
 

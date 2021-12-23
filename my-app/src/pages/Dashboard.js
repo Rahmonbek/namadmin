@@ -95,9 +95,7 @@ export default class Dashboard extends Component {
       formData.append("email", this.state.images.email);
     }
 
-    if (this.state.images.tel) {
-      formData.append("tel", this.state.images.tel);
-    }
+   
 
     if (this.state.images.video1) {
       formData.append("video1", this.state.images.video1);

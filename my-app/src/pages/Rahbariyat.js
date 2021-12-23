@@ -84,7 +84,7 @@ x===null?this.setState({
                     <tbody>
                         {
                             this.state.arr.map((item, kay) =>
-                                <tr>
+                               <tr>
                                     <td>{kay + 1}</td>
                                     <td>{item.ismi}</td>
                                     <td>{item.familiyasi}</td>
