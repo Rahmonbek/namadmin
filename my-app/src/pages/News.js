@@ -77,7 +77,7 @@ export default class News extends Component {
         console.log(res.data);
         document.getElementById("formBasictext").value = res.data.text;
         document.getElementById("formBasictitle").value = res.data.title;
-        document.getElementById("formBasicaddress").value = res.data.address;
+
         document.getElementById("formBasicdate").value = res.data.date;
 
         this.setState({
@@ -107,10 +107,7 @@ export default class News extends Component {
       "title",
       document.getElementById("formBasictitle").value ?? ""
     );
-    formData.append(
-      "address",
-      document.getElementById("formBasicaddress").value ?? ""
-    );
+
     formData.append(
       "date",
       document.getElementById("formBasicdate").value ?? ""
@@ -311,12 +308,7 @@ export default class News extends Component {
         key: "title",
         ...this.getColumnSearchProps("title"),
       },
-      {
-        title: "Manzili",
-        dataIndex: "address",
-        key: "address",
-        ...this.getColumnSearchProps("address"),
-      },
+
       {
         title: "Sanasi",
         dataIndex: "date",
