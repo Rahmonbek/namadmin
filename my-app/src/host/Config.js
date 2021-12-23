@@ -2,14 +2,14 @@ import { httpRequest, url } from "./Host";
 
 export const getNews = () => {
   var config = {
-    url: `${url}/new/${GLOBAL.id}`,
+    url: `${url}/new/`,
     method: "get",
   };
   return httpRequest(config);
 };
 export const GetMurojaat = () => {
   var config = {
-    url: `${url}/murojaat/${GLOBAL.id}`,
+    url: `${url}/murojaat/`,
     method: "get",
   };
   return httpRequest(config);
@@ -37,7 +37,7 @@ export const deleteNew = (idD) => {
 };
 export const deleteMurojat = (idM) => {
   var config = {
-    url: `${url}/murojaat/${GLOBAL.id}/${idM}`,
+    url: `${url}/murojaat/${idM}`,
     method: "delete",
   };
   return httpRequest(config);
@@ -54,7 +54,7 @@ export const editNew = (configs, idT) => {
 
 export const getEvents = () => {
   var config = {
-    url: `${url}/event/${GLOBAL.id}`,
+    url: `${url}/event/`,
     method: "get",
   };
   return httpRequest(config);

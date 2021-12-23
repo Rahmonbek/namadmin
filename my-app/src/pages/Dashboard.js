@@ -3,7 +3,6 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import YouTube from "react-youtube";
-import GLOBAL from "../host/Global";
 import { url } from "../host/Host";
 import Loader from "./Loader";
 import {
@@ -33,17 +32,20 @@ export default class Dashboard extends Component {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
   }
-  // componentDidMount() {
-  //   this.getSchool();
-  // }
+  componentDidMount() {
+    this.getSchool();
+  }
   getSchool = () => {
-    axios.get(`${url}/school-by-admin/${GLOBAL.user}`).then((res) => {
+    axios.get(`${url}/boshqarma/`).then((res) => {
+      console.log(res.data)
       this.setState({
         school: res.data,
         params: res.data.params,
         domain: res.data.domain,
         loading: false,
       });
+    }).catch(err=>{
+      console.log(err)
     });
   };
 
@@ -96,20 +98,20 @@ export default class Dashboard extends Component {
       formData.append("tel", this.state.images.tel);
     }
 
-    if (this.state.images.b_r1) {
-      formData.append("b_r1", this.state.images.b_r1);
+    if (this.state.images.video1) {
+      formData.append("video1", this.state.images.video1);
     }
 
-    if (this.state.images.b_c1) {
-      formData.append("b_c1", this.state.images.b_c1);
+    if (this.state.images.video2) {
+      formData.append("video2", this.state.images.video2);
     }
 
-    if (this.state.images.b_c2) {
-      formData.append("b_c2", this.state.images.b_c2);
+    if (this.state.images.video3) {
+      formData.append("video3", this.state.images.video3);
     }
 
-    if (this.state.images.b_c3) {
-      formData.append("b_c3", this.state.images.b_c3);
+    if (this.state.images.imagep) {
+      formData.append("imagep", this.state.images.imagep);
     }
 
     if (this.state.images.video) {
@@ -120,249 +122,44 @@ export default class Dashboard extends Component {
       formData.append("address", this.state.images.address);
     }
 
-    if (this.state.images.m_h_h1) {
-      formData.append("m_h_h1", this.state.images.m_h_h1);
+    if (this.state.images.video2text) {
+      formData.append("video2text", this.state.images.video2text);
     }
 
-    if (this.state.images.m_h_h2) {
-      formData.append("m_h_h2", this.state.images.m_h_h2);
+    if (this.state.images.video3text) {
+      formData.append("video3text", this.state.images.video3text);
     }
 
-    if (this.state.images.m_h_h3) {
-      formData.append("m_h_h3", this.state.images.m_h_h3);
+    if (this.state.images.textpism) {
+      formData.append("textpism", this.state.images.textpism);
     }
 
-    if (this.state.images.m_h_h4) {
-      formData.append("m_h_h4", this.state.images.m_h_h4);
+    if (this.state.images.textp) {
+      formData.append("textp", this.state.images.textp);
     }
 
-    if (this.state.images.m_h_h5) {
-      formData.append("m_h_h5", this.state.images.m_h_h5);
+    if (this.state.images.textafzallik1) {
+      formData.append("textafzallik1", this.state.images.textafzallik1);
     }
 
-    if (this.state.images.m_h_tq) {
-      formData.append("m_h_tq", this.state.images.m_h_tq);
+    if (this.state.images.textafzallik2) {
+      formData.append("textafzallik2", this.state.images.textafzallik2);
+    }
+    if (this.state.images.textafzallik3) {
+      formData.append("textafzallik3", this.state.images.textafzallik3);
     }
 
-    if (this.state.images.m_h_navruz) {
-      formData.append("m_h_navruz", this.state.images.m_h_navruz);
+    if (this.state.images.textafzallik4) {
+      formData.append("textafzallik4", this.state.images.textafzallik4);
     }
-
-    if (this.state.images.m_h_mustaqillik) {
-      formData.append("m_h_mustaqillik", this.state.images.m_h_mustaqillik);
-    }
-
-    if (this.state.images.m_h_bitiruv) {
-      formData.append("m_h_bitiruv", this.state.images.m_h_bitiruv);
-    }
-
-    if (this.state.images.m_h_t) {
-      formData.append("m_h_t", this.state.images.m_h_t);
-    }
-
-    if (this.state.images.m_h_t_t) {
-      formData.append("m_h_t_t", this.state.images.m_h_t_t);
-    }
-
-    if (this.state.images.m_h_k_h) {
-      formData.append("m_h_k_h", this.state.images.m_h_k_h);
-    }
-
-    if (this.state.images.m_h_k_t) {
-      formData.append("m_h_k_t", this.state.images.m_h_k_t);
-    }
-
-    if (this.state.images.m_h_oshxona) {
-      formData.append("m_h_oshxona", this.state.images.m_h_oshxona);
-    }
-
-    if (this.state.images.m_h_oshxona_t) {
-      formData.append("m_h_oshxona_t", this.state.images.m_h_oshxona_t);
-    }
-
-    if (this.state.images.m_h_musiqa) {
-      formData.append("m_h_musiqa", this.state.images.m_h_musiqa);
-    }
-
-    if (this.state.images.m_h_musiqa_t) {
-      formData.append("m_h_musiqa_t", this.state.images.m_h_musiqa_t);
-    }
-
-    if (this.state.images.m_h_sport) {
-      formData.append("m_h_sport", this.state.images.m_h_sport);
-    }
-
-    if (this.state.images.m_h_sport_t) {
-      formData.append("m_h_sport_t", this.state.images.m_h_sport_t);
-    }
-
-    if (this.state.images.m_h_axborot) {
-      formData.append("m_h_axborot", this.state.images.m_h_axborot);
-    }
-
-    if (this.state.images.m_h_axborot_t) {
-      formData.append("m_h_axborot_t", this.state.images.m_h_axborot_t);
-    }
-
-    if (this.state.images.m_h_xavfsizlik) {
-      formData.append("m_h_xavfsizlik", this.state.images.m_h_xavfsizlik);
-    }
-
-    if (this.state.images.m_h_xavfsizlik_t) {
-      formData.append("m_h_xavfsizlik_t", this.state.images.m_h_xavfsizlik_t);
-    }
-
-    if (this.state.images.m_h_tibbiyot) {
-      formData.append("m_h_tibbiyot", this.state.images.m_h_tibbiyot);
-    }
-
-    if (this.state.images.m_h_tibbiyot_t) {
-      formData.append("m_h_tibbiyot_t", this.state.images.m_h_tibbiyot_t);
-    }
-
-    if (this.state.images.m_h_o_r) {
-      formData.append("m_h_o_r", this.state.images.m_h_o_r);
-    }
-
-    if (this.state.images.m_h_o) {
-      formData.append("m_h_o", this.state.images.m_h_o);
-    }
-
-    if (this.state.images.m_h_o_t) {
-      formData.append("m_h_o_t", this.state.images.m_h_o_t);
-    }
-
-    if (this.state.images.q) {
-      formData.append("q", this.state.images.q);
-    }
-
-    if (this.state.images.q_t) {
-      formData.append("q_t", this.state.images.q_t);
-    }
-
-    if (this.state.images.q_talim) {
-      formData.append("q_talim", this.state.images.q_talim);
-    }
-
-    if (this.state.images.q_bitiruv) {
-      formData.append("q_bitiruv", this.state.images.q_bitiruv);
-    }
-
-    if (this.state.images.q_oquvchi) {
-      formData.append("q_oquvchi", this.state.images.q_oquvchi);
-    }
-
-    if (this.state.images.q_j_online) {
-      formData.append("q_j_online", this.state.images.q_j_online);
-    }
-
-    if (this.state.images.q_j_forma) {
-      formData.append("q_j_forma", this.state.images.q_j_forma);
-    }
-
-    if (this.state.images.q_j_koz) {
-      formData.append("q_j_koz", this.state.images.q_j_koz);
-    }
-
-    if (this.state.images.q_j_hujjat) {
-      formData.append("q_j_hujjat", this.state.images.q_j_hujjat);
-    }
-
-    if (this.state.images.q_j_intervyu) {
-      formData.append("q_j_intervyu", this.state.images.q_j_intervyu);
-    }
-
-    if (this.state.images.q_j_qaror) {
-      formData.append("q_j_qaror", this.state.images.q_j_qaror);
-    }
-
-    if (this.state.images.q_imtihon_r) {
-      formData.append("q_imtihon_r", this.state.images.q_imtihon_r);
-    }
-
-    if (this.state.images.q_imtihon_t) {
-      formData.append("q_imtihon_t", this.state.images.q_imtihon_t);
-    }
-
-    if (this.state.images.q_oquv_yili) {
-      formData.append("q_oquv_yili", this.state.images.q_oquv_yili);
-    }
-
-    if (this.state.images.q_muddat) {
-      formData.append("q_muddat", this.state.images.q_muddat);
-    }
-
-    if (this.state.images.q_imtihon) {
-      formData.append("q_imtihon", this.state.images.q_imtihon);
-    }
-
-    if (this.state.images.q_hujjat_t1) {
-      formData.append("q_hujjat_t1", this.state.images.q_hujjat_t1);
-    }
-
-    if (this.state.images.q_hujjat_t2) {
-      formData.append("q_hujjat_t2", this.state.images.q_hujjat_t2);
-    }
-
-    if (this.state.images.q_hujjat_t3) {
-      formData.append("q_hujjat_t3", this.state.images.q_hujjat_t3);
-    }
-
-    if (this.state.images.q) {
-      formData.append("q", this.state.images.q);
-    }
-
-    if (this.state.images.school_name) {
-      formData.append("school_name", this.state.images.school_name);
-    }
-    if (this.state.images.school_number) {
-      formData.append("school_number", Number(this.state.images.school_number));
-    }
-
-    if (!!this.state.images.type) {
-      formData.append("type", this.state.images.type);
+    if (this.state.images.name) {
+      formData.append("name", this.state.images.name);
     }
     if (!!this.state.images.phone) {
       formData.append("phone", this.state.images.phone);
     }
-    if (!!this.state.images.address) {
-      formData.append("address", this.state.images.address);
-    }
-    formData.append(
-      "region",
-      this.state.school.region ? this.state.school.region : ""
-    );
-    formData.append(
-      "school_number",
-      this.state.school.school_number ? this.state.school.school_number : ""
-    );
-    formData.append("user", GLOBAL.user ? GLOBAL.user : "");
-    if (this.state.images.foto) {
-      formData.append("foto", this.state.images.foto);
-    }
-    if (this.state.images.foto1) {
-      formData.append("foto1", this.state.images.foto1);
-    }
-    if (this.state.images.foto2) {
-      formData.append("foto2", this.state.images.foto2);
-    }
-    if (this.state.images.foto3) {
-      formData.append("foto3", this.state.images.foto3);
-    }
-    if (this.state.images.foto4) {
-      formData.append("foto4", this.state.images.foto4);
-    }
-    if (this.state.images.foto5) {
-      formData.append("foto5", this.state.images.foto5);
-    }
-    if (this.state.images.foto6) {
-      formData.append("foto6", this.state.images.foto6);
-    }
-    if (this.state.images.foto7) {
-      formData.append("foto7", this.state.images.foto7);
-    }
     axios
-      .put(`${url}/school/${GLOBAL.id}/`, formData)
+      .put(`${url}/boshqarma/`, formData)
       .then((res) => {
         this.getSchool();
         message.success("Ma'lumot qo'shildi");
@@ -386,63 +183,6 @@ export default class Dashboard extends Component {
           <Loader />
         ) : (
           <div>
-          
-            <div
-              style={{
-                backgroundColor: "white",
-                marginBottom: "30px",
-                boxShadow:
-                  "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
-              }}
-            >
-              <h4
-                style={{ textAlign: "center", margin: "0", padding: "0.5em 0" }}
-              >
-                Boshqarma joylashgan manzilni kiriting
-              </h4>
-              <YMaps query={{ lang: "uz_Uz" }}>
-                <Map
-                  onClick={this.onMapClick}
-                  width="100%"
-                  height="65vh"
-                  defaultState={{
-                    center:
-                      this.state.params !== null
-                        ? this.state.params
-                        : [41.79478951067519, 64.27236652149892],
-
-                    zoom: 6,
-                  }}
-                >
-                  {
-                    <Clusterer
-                      options={{
-                        preset: "islands#invertedVioletClusterIcons",
-                        groupByCoordinates: false,
-                      }}
-                    >
-                      <Placemark
-                        key={0}
-                        geometry={
-                          this.state.params !== null
-                            ? this.state.params
-                            : [41.79478951067519, 64.27236652149892]
-                        }
-                        properties={{
-                          balloonContent: "Boshqarma binosi",
-                        }}
-                      />
-                    </Clusterer>
-                  }
-
-                  <GeolocationControl options={{ float: "left" }} />
-                  <TypeSelector options={{ float: "right" }} />
-                  <TrafficControl options={{ float: "right" }} />
-                  <RouteButton options={{ float: "right" }} />
-                  <ZoomControl options={{ float: "left" }} />
-                </Map>
-              </YMaps>
-            </div>
 
             <Form
               style={{
@@ -469,47 +209,15 @@ export default class Dashboard extends Component {
                             fontSize: "16px",
                           }}
                         >
-                          Boshqarma nomeri
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="school_number"
-                          type="text"
-                          readOnly={true}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.school_number
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
                           Boshqarma nomi
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="school_name"
+                          name="name"
                           type="text"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.school_name
+                              ? this.state.school.name
                               : ""
                           }
                           onChange={(e) => this.customText(e)}
@@ -564,98 +272,11 @@ export default class Dashboard extends Component {
                             fontSize: "16px",
                           }}
                         >
-                          Boshqarma turi
-                        </Form.Label>
-                        {this.state.selectA ? (
-                          <select
-                            className="formInput"
-                            style={{ width: "100%" }}
-                            name="type"
-                            type="text"
-                            value={
-                              !this.state.images.type
-                                ? ""
-                                : this.state.images.type
-                            }
-                            onChange={(e) => this.customText(e)}
-                          >
-                            <option value="Ixtisoslashtirilgan Davlat umuta'lim Boshqarmai">
-                              Ixtisoslashtirilgan Davlat umumta'lim Boshqarmai
-                            </option>
-                            <option value="Ayrim fanlar chuqur o'rganiladigan ixtisoslashtirilgan davlat umumiy o'rta ta'lim Boshqarmai">
-                              Ayrim fanlar chuqur o'rganiladigan
-                              ixtisoslashtirilgan davlat umumiy o'rta ta'lim
-                              Boshqarmai
-                            </option>
-
-                            <option value="Davlat umumta'lim Boshqarmai">
-                              Davlat umumta'lim Boshqarmai
-                            </option>
-                            <option value="Xususiy Boshqarma">
-                              Xususiy Boshqarma
-                            </option>
-                            <option value="Prezident Boshqarmai">
-                              Prezident Boshqarmai
-                            </option>
-                          </select>
-                        ) : (
-                          <select
-                            className="formInput"
-                            style={{ width: "100%" }}
-                            name="type"
-                            type="text"
-                            value={
-                              this.state.school !== null
-                                ? this.state.school.type
-                                : ""
-                            }
-                            onChange={(e) => {
-                              this.customText(e);
-                            }}
-                          >
-                            <option value="Ayrim fanlar chuqur o'rganiladigan ixtisoslashtirilgan davlat umumiy o'rta ta'lim Boshqarmai">
-                              Ayrim fanlar chuqur o'rganiladigan
-                              ixtisoslashtirilgan davlat umumiy o'rta ta'lim
-                              Boshqarmai
-                            </option>
-
-                            <option value="Ixtisoslashtirilgan Davlat umuta'lim Boshqarmai">
-                              Ixtisoslashtirilgan Davlat umuta'lim Boshqarmai
-                            </option>
-                            <option value="Davlat umumta'lim Boshqarmai">
-                              Davlat umumta'lim Boshqarmai
-                            </option>
-                            <option value="Xususiy Boshqarma">
-                              Xususiy Boshqarma
-                            </option>
-                            <option value="Prezident Boshqarmai">
-                              Prezident Boshqarmai
-                            </option>
-                          </select>
-                        )}
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
                           Boshqarma veb sahifasining ssilkasini kiriting
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="instagram"
+                          name="domain"
                           type="url"
                           defaultValue={
                             this.state.domain !== null ? this.state.domain : ""
@@ -871,12 +492,12 @@ export default class Dashboard extends Component {
                             fontSize: "16px",
                           }}
                         >
-                          Bosh sahifasining bosh qismidagi rasm
+                          Bosh sahifasining bosh qismidagi video
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="b_r1"
+                          accept=".mp4"
+                          name="video1"
                           type="file"
                           onChange={this.customRequest}
                         />
@@ -888,12 +509,14 @@ export default class Dashboard extends Component {
                       md={4}
                       lg={4}
                     >
-                      <img
-                        alt="..."
+                      <video
+                        controls
+                        autoplay
+                        muted
                         src={
                           this.state.school !== null
-                            ? this.state.school.b_r1 !== null
-                              ? this.state.school.b_r1
+                            ? this.state.school.video1 !== null
+                              ? this.state.school.video1
                               : this.state.img
                             : ""
                         }
@@ -916,12 +539,12 @@ export default class Dashboard extends Component {
                             fontSize: "16px",
                           }}
                         >
-                          Bosh sahifadagi yutuqlarimiz kartichkasi orqa foni
+                          Bosh sahifadagi ikkinchi video
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="b_c1"
+                          accept=".mp4"
+                          name="video2"
                           type="file"
                           onChange={this.customRequest}
                         />
@@ -933,12 +556,14 @@ export default class Dashboard extends Component {
                       md={4}
                       lg={4}
                     >
-                      <img
-                        alt="..."
-                        src={
+                      <video
+controls
+autoplay
+muted
+src={
                           this.state.school !== null
-                            ? this.state.school.b_c1 !== null
-                              ? this.state.school.b_c1
+                            ? this.state.school.video2 !== null
+                              ? this.state.school.video2
                               : this.state.img
                             : ""
                         }
@@ -946,742 +571,7 @@ export default class Dashboard extends Component {
                       />
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi yangiliklar kartichkasi orqa foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="b_c2"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.b_c2 !== null
-                              ? this.state.school.b_c2
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="b_c3"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.b_c3 !== null
-                              ? this.state.school.b_c3
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto !== null
-                              ? this.state.school.foto
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 1-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto1"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto1 !== null
-                              ? this.state.school.foto1
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 2-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto2"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto2 !== null
-                              ? this.state.school.foto2
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 3-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto3"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto3 !== null
-                              ? this.state.school.foto3
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 4-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto4"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto4 !== null
-                              ? this.state.school.foto4
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 5-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto5"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto5 !== null
-                              ? this.state.school.foto5
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 6-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto6"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto6 !== null
-                              ? this.state.school.foto6
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahifadagi fotolavhalar kartichkasi orqa 7-foni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="foto7"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.foto7 !== null
-                              ? this.state.school.foto7
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Bosh sahidagi video you tube link qo'ying
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="video"
-                          type="url"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.video
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <YouTube
-                        videoId={
-                          this.state.school !== null
-                            ? this.state.school.video !== null
-                              ? this.state.school.video.slice(
-                                  this.state.school.video.indexOf("youtu.be/") +
-                                    9
-                                )
-                              : ""
-                            : ""
-                        }
-                        opts={{
-                          width: "100%",
-                          height: "100%",
-                          playerVars: {
-                            // https://developers.google.com/youtube/player_parameters
-                            autoplay: 0,
-                          },
-                        }}
-                        onReady={this._onReady}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining bosh qismidagi 1-rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_h1"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_h1 !== null
-                              ? this.state.school.m_h_h1
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining bosh qismidagi 2-rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_h2"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_h2 !== null
-                              ? this.state.school.m_h_h2
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining bosh qismidagi 3-rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_h3"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_h3 !== null
-                              ? this.state.school.m_h_h3
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining bosh qismidagi 4-rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_h4"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_h4 !== null
-                              ? this.state.school.m_h_h4
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining bosh qismidagi 5-rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_h5"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_h5 !== null
-                              ? this.state.school.m_h_h5
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
+                  
                   <Row style={{ marginTop: "20px" }}>
                     <Col
                       sm={12}
@@ -1697,1533 +587,350 @@ export default class Dashboard extends Component {
                             fontSize: "16px",
                           }}
                         >
-                          Boshqarma hayoti sahifasining tadbirlari va qadriyatlari
+                          Bosh sahifasining 2-video ustidagi yozuv
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          name="m_h_tq"
+                          name="video2text"
                           as="textarea"
                           defaultValue={
                             this.state.school !== null
-                              ? this.state.school.m_h_tq
+                              ? this.state.school.video2text
                               : ""
                           }
                           placeholder="Matn kiriting..."
                           style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining Navruz bayrami rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_navruz"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_navruz
-                              ? this.state.school.m_h_navruz
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining Mustaqillik bayrami
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_mustaqillik"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_mustaqillik
-                              ? this.state.school.m_h_mustaqillik
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining Bitiruv bayrami rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_bitiruv"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_bitiruv
-                              ? this.state.school.m_h_bitiruv
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining transport xizmati uchun
-                          rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_t"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_t !== null
-                              ? this.state.school.m_h_t
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasining transport xizmati uchun
-                          rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_t_t"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_t_t
-                              : ""
-                          }
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi 306 gradusli rasm uchun
-                          sarlavha
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_k_h"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_k_h
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi 306 gradusli rasm uchun
-                          matn
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_k_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_k_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi oshxona rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_oshxona"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_oshxona
-                              ? this.state.school.m_h_oshxona
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                </Col>
-                <Col lg={6} md={12} sm={12}>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi oshxona matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_oshxona_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_oshxona_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi musiqa rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_musiqa"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_musiqa
-                              ? this.state.school.m_h_musiqa
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi musiqa matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_musiqa_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_musiqa_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi sport rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_sport"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_sport
-                              ? this.state.school.m_h_sport
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi sport matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_sport_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_sport_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi axborot rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_axborot"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_axborot
-                              ? this.state.school.m_h_axborot
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi axborot matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_axborot_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_axborot_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi xavfsizlik rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_xavfsizlik"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_xavfsizlik
-                              ? this.state.school.m_h_xavfsizlik
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi xavfsizlik matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_xavfsizlik_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_xavfsizlik_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi tibbiyot rasmi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_tibbiyot"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_tibbiyot
-                              ? this.state.school.m_h_tibbiyot
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidagi tibbiyot matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_tibbiyot_t"
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_tibbiyot_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidaning oxirdagi mashhur inson
-                          rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="m_h_o_r"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.m_h_o_r !== null
-                              ? this.state.school.m_h_o_r
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidaning oxirdagi mashhur inson
-                          matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_o"
-                          placeholder="Matn kiriting..."
-                          as="textarea"
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_o
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Boshqarma hayoti sahifasidaning oxirdagi mashhur inson
-                          ismi
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="m_h_o_t"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.m_h_o_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining qabul jarayoni uchun rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="q"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.q !== null
-                              ? this.state.school.q
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining qabul jarayoni uchun matn
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_t"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_t
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          as="textarea"
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining ta'lim shakli uchun matn
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_talim"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_talim
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining bitiruvchilar uchun matn
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_bitiruv"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_bitiruv
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining o'quvchilar uchun matn
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_oquvchi"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_oquvchi
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining online ro'yhatdan o'tish matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_online"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_online
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining ariza to'ldirish matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_forma"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_forma
-                              : ""
-                          }
-                          as="textarea"
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining arizani ko'zdan kechirish matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_koz"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_koz
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining hujjat to'plash matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_hujjat"
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_hujjat
-                              : ""
-                          }
-                          placeholder="Matn kiriting..."
-                          style={{ height: "100px" }}
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining suhbat jarayoni matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_intervyu"
-                          style={{ height: "100px" }}
-                          placeholder="Matn kiriting..."
-                          as="textarea"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_intervyu
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining so'ngi qaror matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_j_qaror"
-                          as="textarea"
-                          style={{ height: "100px" }}
-                          placeholder="Matn kiriting..."
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_j_qaror
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={8}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={8}
-                      lg={8}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining imtihonda ishtirok etish rasm
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          accept=".jpg, .jpeg, .png"
-                          name="q_imtihon_r"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col
-                      sm={4}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={4}
-                      lg={4}
-                    >
-                      <img
-                        alt="..."
-                        src={
-                          this.state.school !== null
-                            ? this.state.school.q_imtihon_r
-                              ? this.state.school.q_imtihon_r
-                              : this.state.img
-                            : ""
-                        }
-                        style={{ width: "70px" }}
-                      />
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining imtihonda ishtirok etish matni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_imtihon_t"
-                          placeholder="Matn kiriting..."
-                          as="textarea"
-                          style={{ height: "100px" }}
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_imtihon_t
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining o'quv yili
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_oquv_yili"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_oquv_yili
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining hujjat topshirish muddati
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_muddat"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_muddat
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining imtihon kuni
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_imtihon"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_imtihon
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining kerakli hujjatlari 1
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_hujjat_t1"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_hujjat_t1
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining kerakli hujjatlari 2
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_hujjat_t2"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_hujjat_t2
-                              : ""
-                          }
-                          onChange={(e) => this.customText(e)}
-                        />
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row style={{ marginTop: "20px" }}>
-                    <Col
-                      sm={12}
-                      style={{ alignItems: "center", justifyContent: "center" }}
-                      md={12}
-                      lg={12}
-                    >
-                      <Form.Group className="mb-3">
-                        <Form.Label
-                          style={{
-                            borderBottom: "1px solid black",
-                            marginBottom: "20px",
-                            fontSize: "16px",
-                          }}
-                        >
-                          Qabul sahifasining kerakli hujjatlari 3
-                        </Form.Label>
-                        <Form.Control
-                          className="formInput"
-                          name="q_hujjat_t3"
-                          type="text"
-                          defaultValue={
-                            this.state.school !== null
-                              ? this.state.school.q_hujjat_t3
-                              : ""
-                          }
                           onChange={(e) => this.customText(e)}
                         />
                       </Form.Group>
                     </Col>
                   </Row>
                 </Col>
+                <Col lg={6} md={12} sm={12}>
+                  
+                <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={8}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={8}
+                      lg={8}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi uchinchi video
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          accept=".mp4"
+                          name="video3"
+                          type="file"
+                          onChange={this.customRequest}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col
+                      sm={4}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={4}
+                      lg={4}
+                    >
+                      <video
+                     controls
+                     autoplay
+                     muted
+                        src={
+                          this.state.school !== null
+                            ? this.state.school.video3 !== null
+                              ? this.state.school.video3
+                              : this.state.img
+                            : ""
+                        }
+                        style={{ width: "70px" }}
+                      />
+                    </Col>
+                  </Row>
+                  
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifasining 3-videosi uchun
+                          yozuv
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="video3text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.video3text
+                              : ""
+                          }
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={8}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={8}
+                      lg={8}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi prezident rasmi
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          accept=".jpg, .jpeg, .png"
+                          name="imagep"
+                          type="file"
+                          onChange={this.customRequest}
+                        />
+                      </Form.Group>
+                    </Col>
+                    <Col
+                      sm={4}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={4}
+                      lg={4}
+                    >
+                      <img
+                        alt="..."
+                        src={
+                          this.state.school !== null
+                            ? this.state.school.imagep !== null
+                              ? this.state.school.imagep
+                              : this.state.img
+                            : ""
+                        }
+                        style={{ width: "70px" }}
+                      />
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi prezident ismi
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textpism"
+                          type="text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textpism
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi prezident fikri
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textp"
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textp
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi 1-afzallik matni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textafzallik1"
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textafzallik1
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi 1-afzallik matni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textafzallik2"
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textafzallik2
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi 3-afzallik matni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textafzallik3"
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textafzallik3
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Bosh sahifadagi 4-afzallik matni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="textafzallik4"
+                          as="textarea"
+                          placeholder="Matn kiriting..."
+                          style={{ height: "100px" }}
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.textafzallik4
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>                </Col>
               </Row>
               <Button
                 className="btnFormIn"
@@ -3235,6 +942,66 @@ export default class Dashboard extends Component {
             </Form>
           </div>
         )}
+                  <br/>
+                  <br/>
+                  <br/>
+                  <div
+              style={{
+                backgroundColor: "white",
+                marginBottom: "30px",
+                boxShadow:
+                  "rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px",
+              }}
+            >
+              <h4
+                style={{ textAlign: "center", margin: "0", padding: "0.5em 0" }}
+              >
+                Boshqarma joylashgan manzilni kiriting
+              </h4>
+              <YMaps query={{ lang: "uz_Uz" }}>
+                <Map
+                  onClick={this.onMapClick}
+                  width="100%"
+                  height="65vh"
+                  defaultState={{
+                    center:
+                      this.state.params !== null
+                        ? this.state.params
+                        : [41.79478951067519, 64.27236652149892],
+
+                    zoom: 6,
+                  }}
+                >
+                  {
+                    <Clusterer
+                      options={{
+                        preset: "islands#invertedVioletClusterIcons",
+                        groupByCoordinates: false,
+                      }}
+                    >
+                      <Placemark
+                        key={0}
+                        geometry={
+                          this.state.params !== null
+                            ? this.state.params
+                            : [41.79478951067519, 64.27236652149892]
+                        }
+                        properties={{
+                          balloonContent: "Boshqarma binosi",
+                        }}
+                      />
+                    </Clusterer>
+                  }
+
+                  <GeolocationControl options={{ float: "left" }} />
+                  <TypeSelector options={{ float: "right" }} />
+                  <TrafficControl options={{ float: "right" }} />
+                  <RouteButton options={{ float: "right" }} />
+                  <ZoomControl options={{ float: "left" }} />
+                </Map>
+              </YMaps>
+            </div>
+
       </div>
     );
   }

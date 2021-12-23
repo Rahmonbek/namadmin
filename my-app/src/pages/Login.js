@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { Button, Form } from "react-bootstrap";
 import style from "../css/Verify.module.css";
 import { Link, Redirect } from "react-router-dom";
+import { url } from "../host/Host";
+import axios from "axios"
 export default class Login extends Component {
   state = {
     login: false,
@@ -13,11 +15,10 @@ export default class Login extends Component {
   loginVeb = (e) => {
   var username=document.getElementById("username").value
   var password=document.getElementById("password").value
-
-   if(username==="1" && password==="1"){
-     this.setState({login:true})
-     window.localStorage.setItem('token', 'wduhhfcwiuvhei uheu iufheufiheu ieh ifheiheih uh iehrfuehih eih ee hei he')
-   }
+  var config={username, password}
+axios.post(`${url}/auth/login/`, config).then(res=>{
+  console.log(res.data, {username, password})
+}).catch(err=>{console.log(err)})
   };
 
   render() {
