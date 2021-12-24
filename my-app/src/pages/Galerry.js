@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import axios from 'axios';
 import React, { Component } from 'react'
-import { Col, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import YouTube from "@u-wave/react-youtube";
 import { url } from '../host/Host';
@@ -15,16 +15,20 @@ export default class Gallery extends Component {
         loading:true,
         edit:null,
     }
+    customRequest = (e) => {
+      let image = e.target.files[0];
+  this.setState({ image: image });
+    };
     addVideo =()=>{
-      var a=document.getElementById('you').value
+     
         var videos=this.state.school.youtube_videos
         
       if(this.state.edit===null){
-        videos.push(a.slice(a.lastIndexOf('/')+1))
+        videos.push(this.state.image)
         
        
       }else{
-videos[this.state.edit]=a.slice(a.lastIndexOf('/')+1)
+videos[this.state.edit]=this.state.image
       }
       
       var config={youtube_videos:videos}
@@ -99,18 +103,26 @@ videos[this.state.edit]=a.slice(a.lastIndexOf('/')+1)
           <Loader />
         ) : (<div>
             <div>
-                <form  className='formnew'>
+                <Form  className='formnew'>
                   <h4>{this.state.edit===null?<p>Yangi video qo'shish</p>:<p>Tanlangan videoni almashtirish</p>}</h4>
-                    <input type="url" placeholder='Videoni linkini kiriting' id="you" style={{width:'100%', display:'block', fontSize:'20px'}}/>
-                <br/>
+                  <Form.Group className="mb-3">
+                        
+                        <Form.Control
+                          className="formInput"
+                          accept=".jpg, .jpeg, .png"
+                          name="image"
+                          type="file"
+                          onChange={this.customRequest}
+                        />
+                      </Form.Group> <br/>
                 <Button type="primary" onClick={this.addVideo} htmlType='button'>Videoni qo'shish</Button>
-                </form>
+                </Form>
             </div>
             <Row>{
             this.state.school!==null?
             this.state.school.youtube_videos.map((item,key)=>{
                 return(
-                <Col lg={6} md={12} sm={12} style={{padding:'20px'}}>
+                <Col lg={4} md={12} sm={12} style={{padding:'20px'}}>
                <div className="you_col" >
                 <YouTube
             style={{width:'100%', height:'300px'}}

@@ -101,7 +101,7 @@ videos[this.state.edit]=a.slice(a.lastIndexOf('/')+1)
             <div>
                 <form  className='formnew'>
                   <h4>{this.state.edit===null?<p>Yangi video qo'shish</p>:<p>Tanlangan videoni almashtirish</p>}</h4>
-                    <input type="url" placeholder='Videoni linkini kiriting' id="you" style={{width:'100%', display:'block', fontSize:'20px'}}/>
+                    <input type="url" placeholder='Videoni linkini kiriting' id="you" style={{width:'100%', display:'block', fontSize:'17px'}}/>
                 <br/>
                 <Button type="primary" onClick={this.addVideo} htmlType='button'>Videoni qo'shish</Button>
                 </form>
