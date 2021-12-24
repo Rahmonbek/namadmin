@@ -27,4 +27,6 @@
 .tablenew{margin-top:30px;padding:20px; background-color: white;box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;}
 .tablenew td{font-size:16px}
 .you_col{padding:10px; background-color: white;box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;}
+.mur_you{padding:10px; background-color: white;box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; display:flex; align-items: center; justify-content:space-around}
 .you_btn{display:flex; width:100%; justify-content: space-between;}
+.mur_you h4{ position: relative; top:5px;}

@@ -96,3 +96,84 @@ export const editYangilik = (configs, idT) => {
   };
   return httpRequest(config);
 };
+
+export const getXodim = () => {
+  var config = {
+    url: `${url}/rahbariyat/`,
+    method: "get",
+  };
+  return httpRequest(config);
+};
+
+export const createXodim = (config) => {
+  var configs = {
+    url: `${url}/rahbariyat/`,
+   headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "post",
+    data: config,
+  };
+  return httpRequest(configs);
+};
+
+export const register = (config) => {
+  var configs = {
+    url: `${url}/register/`,
+   headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "post",
+    data: config,
+  };
+
+  return httpRequest(configs);
+};
+
+export const deleteXodim = (idD) => {
+  var config = {
+    url: `${url}/rahbariyat/${idD}`,
+   headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "delete",
+  };
+  return httpRequest(config);
+};
+
+export const patchXodim = (configs, idM) => {
+  var config = {
+    url: `${url}/rahbariyat/${idM}/`,
+   headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "patch",
+    data: configs,
+  };
+  return httpRequest(config);
+};
+
+export const editXodim = (configs, idM) => {
+  var config = {
+    url: `${url}/rahbariyat/${idM}/`,
+   headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "put",
+    data: configs,
+  };
+  return httpRequest(config);
+};
+export const getSpec = () => {
+  var config = {
+    url: `${url}/speciality/`,
+    method: "get",
+  };
+  return httpRequest(config);
+};
+

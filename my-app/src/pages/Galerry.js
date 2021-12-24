@@ -9,7 +9,7 @@ import Loader from './Loader';
 import { Button, Space } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
-export default class Youtube extends Component {
+export default class Gallery extends Component {
     state={
         school:null,
         loading:true,

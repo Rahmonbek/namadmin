@@ -10,7 +10,7 @@ import "antd/dist/antd.css";
 import Top from "./pages/Top";
 import { Container, Row, Col,} from "react-bootstrap";
 import { Menu } from "antd";
-import { AppstoreOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, VideoCameraOutlined, CameraOutlined,UsergroupAddOutlined, BankOutlined  } from "@ant-design/icons";
 import { BiNews } from "react-icons/bi";
 import { FaRibbon } from "react-icons/fa";
 import { IoDocumentTextSharp } from "react-icons/io5";
@@ -31,10 +31,22 @@ const Home = ({ routes }) => {
     {
       id: 2,
       path: "/home/youtube/uz", // the url
-      name: "Youtube",
-      icon: <AppstoreOutlined />, // name that appear in Sidebar
+      name: "Videolar",
+      icon: <VideoCameraOutlined />, // name that appear in Sidebar
+    },
+    {
+      id: -1,
+      path: "/home/gallery/uz", // the url
+      name: "Galereya",
+      icon: <CameraOutlined />, // name that appear in Sidebar
     },
     // { id: 2, path: "/home/admin/uz", name: "Maktab", icon: <UserOutlined /> },
+    {
+      id: -2,
+      path: "/home/rahbariyat/uz",
+      name: "Rahbariyat",
+      icon: <UsergroupAddOutlined />,
+    },
     {
       id: 3,
       path: "/home/yangiliklar/uz",
@@ -64,7 +76,7 @@ const Home = ({ routes }) => {
       id: 20,
       path: "/home/tumanlar/uz",
       name: "Tumanlar",
-      icon: <IoDocumentTextSharp />,
+      icon: <BankOutlined />,
     },
   ];
   useEffect(() => {

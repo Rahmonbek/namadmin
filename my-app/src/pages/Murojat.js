@@ -6,7 +6,7 @@ import Loader from './Loader'
 import {Row, Col} from 'react-bootstrap'
 import style from '../css/murojat.module.css';
 import {Button, message} from 'antd'
-import { DeleteOutlined, EyeOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EyeOutlined,  EditOutlined } from '@ant-design/icons';
 
 
 export default class Murojat extends Component {
@@ -37,6 +37,7 @@ getMurojat=()=>{
   axios.get(`${url}/murojaat/`).then((res)=>{
    var butD=[]
    var butK=[]
+   console.log(res.data)
     res.data.map(item=>{
 butD.push(false)
 butK.push(false)
@@ -96,39 +97,59 @@ componentDidMount(){
         {this.state.loader?
         <Loader/>:
         <div>
-         <div className={style.tomosha}>
-         <div className={style.tomosha_item}>
-  <button className={style.but} onClick={()=>{this.setState({seen:false})}}>Ko'rilmaganlar</button>
-</div>
-<div className={style.tomosha_item}>
-  <button className={style.but}  onClick={()=>{this.setState({seen:true})}}>Ko'rilganlar</button>
-</div>
+      <div className="you_btn" style={{justifyContent:'flex-start'}}> 
          </div>
+        
+             
           <Row>
-         
+         <div className="mur_you">
+         <Button
+           style={{backgroundColor:this.state.seen?"#120338":"#5b8c00", color:'white', fontSize:'15px'}}
+            icon={<EditOutlined style={{position:'relative', top:'-5px'}} />}
+          onClick={()=>{this.setState({seen:false})}}  
+            
+          >
+            Ko'rilmaganlar
+          </Button>
+           {this.state.seen?<h4 style={{textAlign:'center',color:'#00474f'}}>Ko'rib chiqilgan murojaatlar</h4>:<h4 style={{textAlign:'center',color:'#00474f'}}>Ko'rib chiqilmagan murojaatlar</h4>}
+           <Button
+          
+           
+            style={{backgroundColor:!this.state.seen?"#120338":"#5b8c00", color:'white', fontSize:'15px'}}
+            
+            icon={<EyeOutlined style={{position:'relative', top:'-5px'}} />}
+            onClick={()=>{this.setState({seen:true})}}  
+          
+           
+          >
+            Ko'rilganlar
+          </Button></div>
+
           {this.state.murojat!==null?
           this.state.murojat.map((item, key)=>{
           if(!this.state.seen && !item.seen){
            return(
 <Col lg={4} md={6} sm={2}>
 <div className={style.cardT}>
- <h1>{item.name}</h1>
- <p><i className="fa fa-time"></i> {item.date_sent}</p>
+ <h5>{item.name}</h5>
+ <p><i className="fa fa-calendar"></i> {item.date_sent}</p>
  <p><i className="fa fa-phone"></i> {item.phone}</p>
- <p> {item.text}</p>
- <div className={style.butlar}>
+ <p><i className="fa fa-comment"></i> {item.text}</p>
+ <div className="you_btn">
  <Button
             type="danger"
-            icon={<DeleteOutlined />}
+            icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
             loading={this.state.butD[key]}
+            style={{color:'white', fontSize:'15px'}}
             onClick={()=>{this.editButD(item.id ,key)}}
           >
             O'chirish
           </Button>
           <Button
             type="primary"
-            icon={<EyeOutlined />}
+            icon={<EyeOutlined  style={{position:'relative', top:'-5px'}} />}
             loading={this.state.butK[key]}
+            style={{color:'white', fontSize:'15px'}}
             onClick={()=>{this.editButK(item.id ,key)}}
           >
             Ko'rildi
@@ -144,7 +165,23 @@ componentDidMount(){
               return(
                 <Col lg={4} md={6} sm={2}>
                 <div className={style.cardT}>
-                  Salom
+                 <h5>{item.name}</h5>
+                 <p><i className="fa fa-time"></i> {item.date_sent}</p>
+                 <p><i className="fa fa-phone"></i> {item.phone}</p>
+                 <p><i className="fa fa-comment"></i> {item.text}</p>
+                 <div className="you_btn" style={{justifyContent:'center'}}>
+                 <Button
+                            type="danger"
+                            style={{color:'white', fontSize:'15px'}}
+                            icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
+                            loading={this.state.butD[key]}
+                            onClick={()=>{this.editButD(item.id ,key)}}
+                          >
+                            O'chirish
+                          </Button>
+                        
+                
+                 </div>
                 </div>
                 
                             </Col> 
@@ -160,12 +197,4 @@ componentDidMount(){
     )
   }
 }
-
-// date_sent: "2021-10-27"
-// id: 9
-// name: "Aliyev Husniddin"
-// phone: "+998971661186"
-// school: 2
-// seen: false
-// text: "Proyekt qanday ketepti???"
  

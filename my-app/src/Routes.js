@@ -1,6 +1,6 @@
 import Home from "./Home";
 import Login from "./pages/Login";
-import Rahbariyat from "./pages/Rahbariyat";
+import Oqituvchilar from "./pages/Oqituvchilar";
 import Tadbirlar from "./pages/Tadbirlar";
 import Dashboard from "./pages/Dashboard";
 import News from "./pages/News";
@@ -8,6 +8,7 @@ import Murojatlar from "./pages/Murojat";
 import Tumanlar from "./pages/Tumanlar";
 import Youtube from "./pages/Youtube";
 import Hujjatlar from "./pages/Hujjatlar";
+import Gallery from "./pages/Galerry";
 const routes = [
   {
     path: "/login",
@@ -26,6 +27,10 @@ const routes = [
         component: Youtube,
       },
       {
+        path: "/home/gallery/uz",
+        component: Gallery,
+      },
+      {
         path: "/home/murojaatlar/uz",
         component: Murojatlar,
       },
@@ -40,7 +45,7 @@ const routes = [
       },
       {
         path: "/home/rahbariyat/uz",
-        component: Rahbariyat,
+        component: Oqituvchilar,
       },
 
       {
