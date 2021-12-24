@@ -154,7 +154,6 @@ export default class Dashboard extends Component {
     if (!!this.state.images.phone) {
       formData.append("phone", this.state.images.phone);
     }
-    console.log(window.localStorage.getItem("token"))
     axios
       .patch(`${url}/boshqarma/${1}/`, formData, {
 
@@ -185,6 +184,7 @@ export default class Dashboard extends Component {
   };
   onMapClick = (e) => {
     var coords = e.get("coords");
+    
     this.setState({
       params: coords,
     });

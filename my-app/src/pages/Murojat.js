@@ -17,22 +17,7 @@ export default class Murojat extends Component {
    butD:[],
    butK:[],
  }
- editButD=(id, key)=>{
-  var butD=this.state.butD
-  butD[key]=true
-  this.setState({
-    butD:butD
-  })
-  this.editMurojat(id, key)
-}
-editButK=(id, key)=>{
-  var butK=this.state.butK
-  butK[key]=true
-  this.setState({
-    butK:butK
-  })
-  this.deleteMurojat(id, key)
-}
+
 getMurojat=()=>{
   axios.get(`${url}/murojaat/`).then((res)=>{
    var butD=[]
@@ -49,42 +34,36 @@ butK.push(false)
     butK:butK,
     })
 
-    console.log(res.data)
+   
   })
 }
-editMurojat=(id, key)=>{
-  axios.put(`${url}/murojaat/${id}`, {seen:true}).then((res)=>{
-    message.succes("Ma'lumot saqlandi");
-    var butD=this.state.butD
-    butD[key]=false
-    this.setState({
-      butD:butD
-    })
+editMurojat=(id)=>{
+
+  axios.patch(`${url}/murojaat/${id}/`, {seen:true}, {
+
+    headers: {
+     'Authorization': `Token ${window.localStorage.getItem("token")}`
+    }}).then((res)=>{
+    message.success("Ma'lumot saqlandi");
+   this.getMurojat()
   }).catch((err)=>{
-    message.succes("Ma'lumot saqlanmadi");
-    var butD=this.state.butD
-    butD[key]=false
-    this.setState({
-      butD:butD
-    })
+    message.success("Ma'lumot saqlanmadi");
+   
+   
   })
 
 }
-deleteMurojat=(id, key)=>{
-  axios.delete(`${url}/murojaat/${id}`).then((res)=>{
-    message.succes("Ma'lumot o'chirildi");
-    var butK=this.state.butK
-    butK[key]=false
-    this.setState({
-      butK:butK
-    })
+deleteMurojat=(id)=>{
+  axios.delete(`${url}/murojaat/${id}/`, {
+
+    headers: {
+     'Authorization': `Token ${window.localStorage.getItem("token")}`
+    }}).then((res)=>{
+    message.success("Ma'lumot o'chirildi");
+   this.getMurojat()
   }).catch((err=>{
-    message.succes("Ma'lumot o'chirilmadi");
-    var butK=this.state.butK
-    butK[key]=false
-    this.setState({
-      butK:butK
-    })
+    message.success("Ma'lumot o'chirilmadi");
+   
   }))
 
 }
@@ -141,7 +120,7 @@ componentDidMount(){
             icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
             loading={this.state.butD[key]}
             style={{color:'white', fontSize:'15px'}}
-            onClick={()=>{this.editButD(item.id ,key)}}
+            onClick={()=>{this.deleteMurojat(item.id)}}
           >
             O'chirish
           </Button>
@@ -150,7 +129,7 @@ componentDidMount(){
             icon={<EyeOutlined  style={{position:'relative', top:'-5px'}} />}
             loading={this.state.butK[key]}
             style={{color:'white', fontSize:'15px'}}
-            onClick={()=>{this.editButK(item.id ,key)}}
+            onClick={()=>{this.editMurojat(item.id)}}
           >
             Ko'rildi
           </Button>
@@ -175,7 +154,7 @@ componentDidMount(){
                             style={{color:'white', fontSize:'15px'}}
                             icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
                             loading={this.state.butD[key]}
-                            onClick={()=>{this.editButD(item.id ,key)}}
+                            onClick={()=>{this.deleteMurojat(item.id)}}
                           >
                             O'chirish
                           </Button>

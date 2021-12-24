@@ -125,6 +125,7 @@ export default class Oqituvchilar extends Component {
     this.openModal();
   };
   saveXodim = () => {
+    this.setState({loading:true})
     var full_name = document.getElementById("fullname").value;
     var phone = document.getElementById("phone").value;
     var email = document.getElementById("email").value;
@@ -140,6 +141,7 @@ export default class Oqituvchilar extends Component {
     formData.append("email", email ?? "");
     
     formData.append("description", description ?? "");
+    formData.append("spec", speciality ?? "");
 
     if (this.state.edit !== null) {
       if (this.state.image !== null) {
@@ -147,34 +149,29 @@ export default class Oqituvchilar extends Component {
       }
       editXodim(formData, this.state.edit)
         .then((res) => {
-          editXodim(
-            { speciality: this.state.speciality },
-            this.state.edit
-          ).then((res2) => {
-            message.success("Xodim o'zgartildi.");
+         message.success("Xodim o'zgartildi.");
             this.hideModal();
             this.getXodim();
-          });
+          
         })
-        .catch((err) => message.error("Xodim o'zgartilmadi!"));
+        .catch((err) => {message.error("Xodim o'zgartilmadi!");    this.setState({loading:false})});
     } else {
       formData.append("image", this.state.image ?? "");
       createXodim(formData)
         .then((res) => {
-          patchXodim({ speciality: speciality }, res.data.id)
-            .then((res1) => {
+         
               this.hideModal();
               this.getXodim();
               message.success("Xodim saqlandi.");
-            })
-            .catch((err1) => {
-              message.error("Xodim saqlanmadi!");
-            });
+           
+            
         })
         .catch((err) => {
+          this.setState({loading:false})
           message.error("Xodim saqlanmadi!");
         });
     }
+
   };
   deleteXodim = (id) => {
     deleteXodim(id)
@@ -286,9 +283,9 @@ export default class Oqituvchilar extends Component {
                                 </p>
                                 <p>
                                   <b>Lavozimi: </b>
-                                  {item.speciality.map((item1) => {
-                                    return this.echoOptions(item1) + " ";
-                                  })}
+                                  
+                                  {this.echoOptions(item.speciality) }
+                                
                                 </p>
                                 <p>
                                   <b>Qabul kunlari: </b>
@@ -515,9 +512,9 @@ export default class Oqituvchilar extends Component {
                   <Select
                     placeholder="Lavozimi"
                     value={
-                      this.state.speciality !== [] ? this.state.speciality : ""
+                      this.state.speciality !== null? this.state.speciality : ""
                     }
-                    mode="multiple"
+                   
                     style={{ width: "100%" }}
                     onChange={this.handleChange}
                     optionLabelProp="label"

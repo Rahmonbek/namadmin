@@ -20,21 +20,14 @@ export default class Gallery extends Component {
   this.setState({ image: image });
     };
     addVideo =()=>{
-     
-        var videos=this.state.school.youtube_videos
+      const formData = new FormData();
+      console.log(this.state.image)
+      formData.append("foto_lavha", this.state.images);
+        var config ={foto_lavha:this.state.image}
         
       if(this.state.edit===null){
-        videos.push(this.state.image)
-        
-       
-      }else{
-videos[this.state.edit]=this.state.image
-      }
-      
-      var config={youtube_videos:videos}
-        
         axios
-        .patch(`${url}/boshqarma/${1}/`, config, {
+        .post(`${url}/fotos/`, formData, {
   
           headers: {
            'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -52,15 +45,41 @@ videos[this.state.edit]=this.state.image
           edit:null
         })
         
+       
+      }else{
+        axios
+        .patch(`${url}/fotos/${this.state.edit}`, formData, {
+  
+          headers: {
+           'Authorization': `Token ${window.localStorage.getItem("token")}`
+          }})
+        .then((res) => {
+         
+          this.getSchool();
+          message.success("Ma'lumot qo'shildi");
+        })
+        .catch((err) => {
+          message.error("Ma'lumot qo'shilmadi");
+          this.setState({ loading: false });
+        });
+        this.setState({
+          edit:null
+        })
+      }
+      
+     
+        
+       
+        
     }
     componentDidMount() {
         this.getSchool();
       }
       getSchool = () => {
-        axios.get(`${url}/boshqarma/`).then((res) => {
+        axios.get(`${url}/fotos/`).then((res) => {
          
           this.setState({
-            school: res.data[0],
+            school: res.data,
            
             loading: false,
           });
@@ -75,10 +94,10 @@ videos[this.state.edit]=this.state.image
        })
      }
     deleteVideo=(id)=>{
-      var videos=this.state.school.youtube_videos
-      videos.splice(id, 1)
+     
+    
       axios
-      .patch(`${url}/boshqarma/${1}/`, videos, {
+      .delete(`${url}/fotos/${id}`, {
 
         headers: {
          'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -105,7 +124,7 @@ videos[this.state.edit]=this.state.image
             <div>
                 <Form  className='formnew'>
                   <h4>{this.state.edit===null?<p>Yangi video qo'shish</p>:<p>Tanlangan videoni almashtirish</p>}</h4>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-3" controlId="ima">
                         
                         <Form.Control
                           className="formInput"
@@ -120,21 +139,20 @@ videos[this.state.edit]=this.state.image
             </div>
             <Row>{
             this.state.school!==null?
-            this.state.school.youtube_videos.map((item,key)=>{
+            this.state.school.map((item,key)=>{
                 return(
                 <Col lg={4} md={12} sm={12} style={{padding:'20px'}}>
                <div className="you_col" >
-                <YouTube
-            style={{width:'100%', height:'300px'}}
-  video={item}                 
+                <img
+            style={{width:'100%', height:'250px'}}
+  src={item.foto_lavha}                 
   className="you"                
-  autoPlay={true}
-  muted={true}
+  alt="..."
   />
   <div className="you_btn">  <Button
             type="primary"
             icon={<EditOutlined style={{position:'relative', top:'-5px'}} />}
-          onClick={()=>{this.editVideo(key)}}  
+          onClick={()=>{this.editVideo(item.id)}}  
             
           >
             O'zgartirish
@@ -142,7 +160,7 @@ videos[this.state.edit]=this.state.image
           <Button
             type="danger"
             icon={<DeleteOutlined style={{position:'relative', top:'-5px'}} />}
-            onClick={()=>{this.deleteVideo(key)}} 
+            onClick={()=>{this.deleteVideo(item.id)}} 
            
           >
             O'chirish
