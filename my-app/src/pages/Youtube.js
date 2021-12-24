@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import { Col, Row } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
-import YouTube from 'react-youtube';
+import YouTube from "@u-wave/react-youtube";
 import { url } from '../host/Host';
 import Loader from './Loader';
 
@@ -17,7 +17,7 @@ export default class Youtube extends Component {
         var videos=[a.slice(a.lastIndexOf('/')+1),a.slice(a.lastIndexOf('/')+1)]
         
         var config={youtube_videos:videos}
-        console.log(config)
+       
         axios
         .patch(`${url}/boshqarma/${1}/`, config, {
   
@@ -69,19 +69,13 @@ export default class Youtube extends Component {
             <Row>{
             this.state.school!==null?
             this.state.school.youtube_videos.map((item,key)=>{
-                return(<Col lg={3} md={4} sm={6} style={{padding:'20px'}}>
+                return(
+                <Col lg={3} md={4} sm={6} style={{padding:'20px'}}>
                 <YouTube
-                style={{width:'100%'}}
-  video={item}                  // defaults -> null
-  id={String(key)}                       // defaults -> null
-  className="you"                // defaults -> null
-  opts={{
-    playerVars: {
-      rel: 0,
-    },
-  }}
-  autoplay={true}
-  muted={true}
+            
+  video={item}                 
+  className="you"                
+  
   />
                 </Col>)
             })
