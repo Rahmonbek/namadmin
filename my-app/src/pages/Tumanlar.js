@@ -1,84 +1,230 @@
 import React, { Component } from "react";
-import Loader from "./Loader";
-import { Modal, Select, Button, Input, Space, Table } from "antd";
-import { Form } from "react-bootstrap";
-import Highlighter from "react-highlight-words";
 import {
-  SearchOutlined,
-  EyeOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+  createTumanlar,
+  deleteTumanlar,
+  editTumanlar,
+  getTumanlar,
+} from "../host/Config";
+import { Table, Input, Modal, Button, Space, message } from "antd";
+import Highlighter from "react-highlight-words";
+import { Form } from "react-bootstrap";
+import { SearchOutlined } from "@ant-design/icons";
+import { url } from "../host/Host";
+import axios from "axios";
+import ImageDemo from "./ImageDemo";
+import GLOBAL from "../host/Global";
+import Loader from "./Loader";
 
 export default class Tumanlar extends Component {
-  state = {
-    loading: true,
-    show: false,
-    title: "",
-    type: "Shartnoma",
-    file: null,
-    searchText: "",
-    searchedColumn: "",
-    files: [
-      {
-        id: 1,
-        title: "Chortoq",
-        Name: "Rahmon Ismoilov",
-        Img: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimvideosi:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimImg:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        telegram: "telegram",
-        instagram: "instagram",
-        facebook: "facebook",
-        youtube: "youtube",
-        file: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        type: "Shartnoma",
-      },
-      {
-        id: 2,
-        title: "Mimgbuloq",
-        Name: "Rahmon Ismoilov",
-        Img: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimvideosi:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimImg:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        telegram: "telegram",
-        instagram: "instagram",
-        facebook: "facebook",
-        youtube: "youtube",
-        file: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        type: "Shartnoma",
-      },
-      {
-        id: 3,
-        title: "Namangan",
-        Name: "Rahmon Ismoilov",
-        Img: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimvideosi:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        bulimImg:
-          "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        telegram: "telegram",
-        instagram: "instagram",
-        facebook: "facebook",
-        youtube: "youtube",
-        file: "https://staff.tiiame.uz/storage/users/14/presentations/xeiF6kKGT1NUUNhjhST2w6AP2xlkpUNr1WkEvU4Z.pdf",
-        type: "Shartnoma",
-      },
-    ],
+  constructor() {
+    super();
+    this.state = {
+      loading: true,
+      Tumanlar: [],
+      searchText: "",
+      searchedColumn: "",
+      textF: "",
+      show: false,
+      showMatn: false,
+      // image: null,
+      // imageUrl: "",
+      // image_region: null,
+      // image_regionUrl: "",
+      edit: null,
+      // previewImage: false,
+    };
+  }
+
+  matnKorish = (text) => {
+    this.setState({
+      showMatn: true,
+      text: text,
+    });
+  };
+  openModal = () => {
+    this.setState({
+      show: true,
+    });
   };
 
-  filterFiles = (documents) => {
-    var files = documents;
-    for (let i = 0; i < files.length; i++) {
-      files[i].key = i + 1;
+  closeMatn = () => {
+    this.setState({
+      showMatn: false,
+      text: "",
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      show: false,
+      edit: null,
+      // image: null,
+      // imageUrl: null,
+      // image_region: null,
+      // image_regionUrl: null,
+    });
+    // document.getElementById("formBasicimage").value = "";
+    // document.getElementById("formBasicimage_region").value = "";
+    document.getElementById("formBasicname").value = "";
+    document.getElementById("formBasicfull_name").value = "";
+    document.getElementById("formBasicvideo").value = "";
+    document.getElementById("formBasicphone").value = "";
+    document.getElementById("formBasictelegram").value = "";
+    document.getElementById("formBasicinstagram").value = "";
+    document.getElementById("formBasicfacebook").value = "";
+    document.getElementById("formBasicemail").value = "";
+    document.getElementById("formBasicyoutube").value = "";
+    document.getElementById("formBasicdomain").value = "";
+  };
+  editTumanlar = (key) => {
+    axios
+      .get(`${url}/regions/${key}`, {
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+          Authorization: `Token ${window.localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        document.getElementById("formBasicname").value = res.data.name;
+        document.getElementById("formBasicfull_name").value =
+          res.data.full_name;
+        // document.getElementById("formBasicimage_region").value =
+        //   res.data.image_region;
+        // document.getElementById("formBasicimage").value = res.data.image;
+        document.getElementById("formBasicvideo").value = res.data.video;
+        document.getElementById("formBasicphone").value = res.data.phone;
+        document.getElementById("formBasictelegram").value = res.data.telegram;
+        document.getElementById("formBasicinstagram").value =
+          res.data.instagram;
+        document.getElementById("formBasicfacebook").value = res.data.faccebook;
+        document.getElementById("formBasicemail").value = res.data.email;
+        document.getElementById("formBasicyoutube").value = res.data.youtube;
+        document.getElementById("formBasicdomain").value = res.data.domain;
+
+        // this.setState({
+        //   edit: res.data.id,
+        //   imageUrl: res.data.image,
+        //   previewImage: true,
+        // });
+        // this.setState({
+        //   edit: res.data.id,
+        //   image_regionUrl: res.data.image_region,
+        //   previewImage: true,
+        // });
+      })
+      .catch((err) => console.log(err));
+    this.openModal();
+  };
+  // customRequest = (e) => {
+  //   let image = e.target.files[0];
+
+  //   this.setState({
+  //     image: image,
+  //     imageUrl: image,
+  //     previewImage: false,
+  //   });
+  // };
+  // customRequest = (e) => {
+  //   let image_region = e.target.files[0];
+
+  //   this.setState({
+  //     image_region: image_region,
+  //     image_regionUrl: image_region,
+  //     previewImage: false,
+  //   });
+  // };
+  createTumanlar = () => {
+    this.setState({
+      loading: true,
+    });
+    let formData = new FormData();
+    formData.append(
+      "name",
+      document.getElementById("formBasicname").value ?? ""
+    );
+    formData.append(
+      "full_name",
+      document.getElementById("formBasicfull_name").value ?? ""
+    );
+    // formData.append(
+    //   "image_region",
+    //   document.getElementById("formBasicimage_region").value ?? ""
+    // );
+    // formData.append(
+    //   "image",
+    //   document.getElementById("formBasicimage").value ?? ""
+    // );
+    formData.append(
+      "video",
+      document.getElementById("formBasicvideo").value ?? ""
+    );
+    formData.append(
+      "phone",
+      document.getElementById("formBasicphone").value ?? ""
+    );
+    formData.append(
+      "telegram",
+      document.getElementById("formBasictelegram").value ?? ""
+    );
+    formData.append(
+      "instagram",
+      document.getElementById("formBasicinstagram").value ?? ""
+    );
+    formData.append(
+      "facebook",
+      document.getElementById("formBasicfacebook").value ?? ""
+    );
+    formData.append(
+      "email",
+      document.getElementById("formBasicemail").value ?? ""
+    );
+    formData.append(
+      "youtube",
+      document.getElementById("formBasicyoutube").value ?? ""
+    );
+    formData.append(
+      "domain",
+      document.getElementById("formBasicdomain").value ?? ""
+    );
+
+    if (this.state.edit !== null) {
+      // if (this.state.image !== null) {
+      //   formData.append("image", this.state.image ?? "");
+      // }
+      // if (this.state.image_region !== null) {
+      //   formData.append("image_region", this.state.image_region ?? "");
+      // }
+      editTumanlar(formData, this.state.edit)
+        .then((res) => {
+          message.success("Ma'lumot o'zgartirildi");
+          this.getTumanlar();
+        })
+        .catch((err) => {
+          this.setState({
+            loading: false,
+          });
+          message.error("Ma'lumot o'zgartirilmadi");
+        });
+      this.getTumanlar();
+    } else {
+      // formData.append("image", this.state.image ?? "");
+      // formData.append("image_region", this.state.image_region ?? "");
+      createTumanlar(formData)
+        .then((res) => {
+          message.success("Ma'lumot saqlandi");
+          this.getTumanlar();
+        })
+        .catch((err) => {
+          this.setState({
+            loading: false,
+          });
+          message.error("Ma'lumot saqlanmadi");
+        });
+      this.getTumanlar();
     }
-    this.setState({ files });
+    this.closeModal();
   };
-
   getColumnSearchProps = (dataIndex) => ({
     filterDropdown: ({
       setSelectedKeys,
@@ -175,123 +321,235 @@ export default class Tumanlar extends Component {
     this.setState({ searchText: "" });
   };
 
-  openModal = () => {
+  getTumanlar = () => {
+    getTumanlar()
+      .then((res) => {
+        var Tumanlar = res.data;
+        for (let i = 0; i < Tumanlar.length; i++) {
+          Tumanlar[i].key = i + 1;
+        }
+        this.setState({
+          Tumanlar: res.data,
+          loading: false,
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+        });
+      });
+  };
+  deleteTumanlar = (id) => {
     this.setState({
-      show: true,
+      loading: true,
     });
+    deleteTumanlar(id)
+      .then((res) => {
+        message.success("Tadbir o'chirildi");
+        this.getTumanlar();
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+        });
+        message.error("Tadbir o'chiirilmadi");
+      });
   };
-
-  closeModal = () => {
-    this.setState({
-      show: false,
-      type: "Shartnoma",
-      file: null,
-      title: "",
-    });
-  };
-
-  customRequest = (e) => {
-    this.setState({
-      file: e.target.files[0],
-    });
-  };
-
-  createDocument = () => {
-    console.log(this.state.type, this.state.title, this.state.file);
-  };
-
   componentDidMount() {
-    this.filterFiles(this.state.files);
+    this.getTumanlar();
   }
-
   render() {
     const columns = [
       {
-        title: "T/r",
+        title: "Id",
         dataIndex: "key",
         key: "key",
+        ...this.getColumnSearchProps("key"),
       },
+
       {
         title: "Tuman nomi",
-        dataIndex: "title",
-        key: "title",
-        ...this.getColumnSearchProps("title"),
+        dataIndex: "name",
+        key: "name",
+        ...this.getColumnSearchProps("name"),
       },
       {
         title: "Mudirning F.I.SH",
-        dataIndex: "Name",
-        key: "Name",
-        ...this.getColumnSearchProps("Name"),
+        dataIndex: "full_name",
+        key: "full_name",
+        ...this.getColumnSearchProps("full_name"),
       },
-      {
-        title: "Mudirning rasmi",
-        dataIndex: "file",
-        key: "file",
-        render: (file) => {
-          return (
-            <Button type="primary" href={file} icon={<EyeOutlined />}>
-              Ko'rish
-            </Button>
-          );
-        },
-      },
-      {
-        title: "Bo'limning videosi",
-        dataIndex: "bulimvideosi",
-        key: "bulimvideosi",
-        render: (bulimvideosi) => {
-          return (
-            <Button type="primary" href={bulimvideosi} icon={<EyeOutlined />}>
-              Ko'rish
-            </Button>
-          );
-        },
-      },
-      {
-        title: "Bo'limning rasmi",
-        dataIndex: "bulimImg",
-        key: "bulimImg",
-        render: (bulimImg) => {
-          return (
-            <Button type="primary" href={bulimImg} icon={<EyeOutlined />}>
-              Ko'rish
-            </Button>
-          );
-        },
-      },
+      // {
+      //   title: "Bolimning rasmi",
+      //   dataIndex: "image_region",
+      //   key: "image_region",
+      //   width: "20%",
 
+      //   render: (image_region) => {
+      //     return (
+      //       <img src={image_region} style={{ width: "100%" }} alt="rasm" />
+      //     );
+      //   },
+      // },
+      // {
+      //   title: "Mudirning rasmi",
+      //   dataIndex: "image",
+      //   key: "image",
+      //   width: "20%",
+
+      //   render: (image) => {
+      //     return <img src={image} style={{ width: "100%" }} alt="rasm" />;
+      //   },
+      // },
+
+      {
+        title: "Bolimning videosi",
+        dataIndex: "video",
+        key: "video",
+        render: (video) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(video);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
+      },
+      {
+        title: "Telefon raqam",
+        dataIndex: "phone",
+        key: "phone",
+        render: (phone) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(phone);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
+      },
       {
         title: "Telegram",
         dataIndex: "telegram",
         key: "telegram",
-        ...this.getColumnSearchProps("telegram"),
+        render: (telegram) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(telegram);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
       },
       {
         title: "Instagram",
         dataIndex: "instagram",
         key: "instagram",
-        ...this.getColumnSearchProps("instagram"),
+        render: (instagram) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(instagram);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
       },
       {
         title: "Facebook",
         dataIndex: "facebook",
         key: "facebook",
-        ...this.getColumnSearchProps("facebook"),
+        render: (facebook) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(facebook);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
+      },
+      {
+        title: "Email",
+        dataIndex: "email",
+        key: "email",
+        render: (email) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(email);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
       },
       {
         title: "Youtube",
         dataIndex: "youtube",
         key: "youtube",
-        ...this.getColumnSearchProps("youtube"),
+        render: (youtube) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(youtube);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
       },
-
+      {
+        title: "Veb sayt",
+        dataIndex: "domain",
+        key: "domain",
+        render: (domain) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.matnKorish(domain);
+              }}
+            >
+              Ko'rish
+            </Button>
+          );
+        },
+      },
       {
         title: "O'zgartirish",
-        dataIndex: "key",
-        key: "key",
-        render: (key) => {
+        dataIndex: "id",
+        key: "id",
+        render: (id) => {
           return (
-            <Button type="primary" icon={<EditOutlined />}>
+            <Button
+              type="primary"
+              onClick={() => {
+                this.editTumanlar(id);
+              }}
+            >
               O'zgartirish
             </Button>
           );
@@ -299,11 +557,16 @@ export default class Tumanlar extends Component {
       },
       {
         title: "O'chirish",
-        dataIndex: "key",
-        key: "key",
-        render: (key) => {
+        dataIndex: "id",
+        key: "keyId",
+        render: (id) => {
           return (
-            <Button type="danger" icon={<DeleteOutlined />}>
+            <Button
+              type="danger"
+              onClick={() => {
+                this.deleteTumanlar(id);
+              }}
+            >
               O'chirish
             </Button>
           );
@@ -312,134 +575,177 @@ export default class Tumanlar extends Component {
     ];
     return (
       <div>
-        {this.state.loading !== true ? (
+        {this.state.loading === true ? (
           <Loader />
         ) : (
           <div>
+            {" "}
+            <br />
             <Button type="primary" onClick={this.openModal}>
               Ma'lumot qo'shish
             </Button>
             <br />
             <br />
+            <Table columns={columns} dataSource={this.state.Tumanlar} />
             <Modal
-              title="Hujjat"
+              title="To'liq matn"
+              visible={this.state.showMatn}
+              onCancel={this.closeMatn}
+              footer={false}
+            >
+              <p>{this.state.text}</p>
+            </Modal>
+            <Modal
+              title="Tumanlar"
               visible={this.state.show}
               onCancel={this.closeModal}
               footer={false}
             >
               <Form>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+                <Form.Group className="mb-3" controlId="formBasicname">
                   <Form.Label>Tuman nomi</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
+                    defaultValue={this.state.name}
+                    name="name"
                     required
                     type="text"
                     placeholder="Tuman(shahar) nomi"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasictitle">
-                  <Form.Label>Bo'lim mudiring F.I.SH</Form.Label>
+                <Form.Group className="mb-3" controlId="formBasicfull_name">
+                  <Form.Label>Bo'lim mudiri</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
+                    defaultValue={this.state.full_name}
+                    name="full_name"
                     required
                     type="text"
                     placeholder="F.I.SH"
                   />
-                  <Form.Group className="mb-3" controlId="formBasicfile">
-                    <Form.Label>Mudirning rasmini kiriting</Form.Label>
-                    <br />
-                    <Form.Control
-                      className="formInput"
-                      accept="application/pdf"
-                      onChange={this.customRequest}
-                      name="file"
-                      required
-                      type="file"
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicfile">
-                    <Form.Label>Bo'lim videosi</Form.Label>
-                    <br />
-                    <Form.Control
-                      className="formInput"
-                      accept="application/pdf"
-                      onChange={this.customRequest}
-                      name="file"
-                      required
-                      type="file"
-                    />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="formBasicfile">
-                    <Form.Label>Bo'lim rasmi</Form.Label>
-                    <br />
-                    <Form.Control
-                      className="formInput"
-                      accept="application/pdf"
-                      onChange={this.customRequest}
-                      name="file"
-                      required
-                      type="file"
-                    />
-                  </Form.Group>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+
+                {/* <Form.Group className="mb-3" controlId="formBasicimage_region">
+                  <Form.Label>Bo'lim rasmi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={this.customRequest}
+                    name="image_region"
+                    required
+                    type="file"
+                  />
+                  <br />
+                  <br />
+                  {this.state.previewImage
+                    ? ImageDemo(this.state.image_regionUrl)
+                    : ""}
+                </Form.Group> */}
+
+                {/* <Form.Group className="mb-3" controlId="formBasicimage">
+                  <Form.Label>Mudirning rasmi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    accept=".jpg, .jpeg, .png"
+                    onChange={this.customRequest}
+                    name="image"
+                    required
+                    type="file"
+                  />
+                  <br />
+                  <br />
+                  {this.state.previewImage
+                    ? ImageDemo(this.state.imageUrl)
+                    : ""}
+                </Form.Group> */}
+
+                <Form.Group controlId="formBasicvideo" className="mb-3">
+                  <Form.Label>Bo'lim videosi</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="video"
+                    placeholder="https://youtu.be/L-QGQQoPf-Y"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicphone" className="mb-3">
+                  <Form.Label>Telefon raqam</Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="phone"
+                    placeholder="998971665432"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasictelegram" className="mb-3">
                   <Form.Label>Telegram manzil</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
-                    required
-                    type="text"
-                    placeholder="Hujjat nomi"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="telegram"
+                    placeholder="http://t.me/namvxtb.uz"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+                <Form.Group controlId="formBasicinstagram" className="mb-3">
                   <Form.Label>Instagram manzil</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
-                    required
-                    type="text"
-                    placeholder="Hujjat nomi"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="instagram"
+                    placeholder="https://www.instagram.com/namangan/"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+                <Form.Group controlId="formBasicfacebook" className="mb-3">
                   <Form.Label>Facebook manzil</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
-                    required
-                    type="text"
-                    placeholder="Hujjat nomi"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="facebook"
+                    placeholder="https://www.facebook.com/namangan/"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasictitle">
+                <Form.Group className="mb-3" controlId="formBasicemail">
+                  <Form.Label>Email manzil</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder="aahmadov271101@gmail.com"
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicyoutube" className="mb-3">
                   <Form.Label>Youtube manzil</Form.Label>
                   <br />
                   <Form.Control
                     className="formInput"
-                    value={this.state.title}
-                    onChange={(e) => this.setState({ title: e.target.value })}
-                    name="title"
-                    required
-                    type="text"
-                    placeholder="Hujjat nomi"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="youtube"
+                    placeholder="https://www.youtube.com/channel/UC4vQC9mOo5B6_imRFUA62Xg"
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicdomain" className="mb-3">
+                  <Form.Label>Bo'limning veb sayti </Form.Label>
+                  <br />
+                  <Form.Control
+                    className="formInput"
+                    defaultValue={this.state.textF}
+                    as="textarea"
+                    name="domain"
+                    placeholder="Bo'lim veb saytini kiritng"
                   />
                 </Form.Group>
 
@@ -455,13 +761,12 @@ export default class Tumanlar extends Component {
                 <Button
                   type="primary"
                   htmlType="button"
-                  onClick={this.createDocument}
+                  onClick={this.createTumanlar}
                 >
                   Yaratish
                 </Button>
               </Form>
             </Modal>
-            <Table columns={columns} dataSource={this.state.files} />
           </div>
         )}
       </div>

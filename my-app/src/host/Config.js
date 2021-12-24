@@ -108,7 +108,7 @@ export const getXodim = () => {
 export const createXodim = (config) => {
   var configs = {
     url: `${url}/rahbariyat/`,
-   headers: {
+    headers: {
       "Content-type": "application/json; charset=UTF-8",
       Authorization: `Token ${window.localStorage.getItem("token")}`,
     },
@@ -121,7 +121,7 @@ export const createXodim = (config) => {
 export const register = (config) => {
   var configs = {
     url: `${url}/register/`,
-   headers: {
+    headers: {
       "Content-type": "application/json; charset=UTF-8",
       Authorization: `Token ${window.localStorage.getItem("token")}`,
     },
@@ -135,7 +135,7 @@ export const register = (config) => {
 export const deleteXodim = (idD) => {
   var config = {
     url: `${url}/rahbariyat/${idD}`,
-   headers: {
+    headers: {
       "Content-type": "application/json; charset=UTF-8",
       Authorization: `Token ${window.localStorage.getItem("token")}`,
     },
@@ -147,7 +147,7 @@ export const deleteXodim = (idD) => {
 export const patchXodim = (configs, idM) => {
   var config = {
     url: `${url}/rahbariyat/${idM}/`,
-   headers: {
+    headers: {
       "Content-type": "application/json; charset=UTF-8",
       Authorization: `Token ${window.localStorage.getItem("token")}`,
     },
@@ -160,7 +160,7 @@ export const patchXodim = (configs, idM) => {
 export const editXodim = (configs, idM) => {
   var config = {
     url: `${url}/rahbariyat/${idM}/`,
-   headers: {
+    headers: {
       "Content-type": "application/json; charset=UTF-8",
       Authorization: `Token ${window.localStorage.getItem("token")}`,
     },
@@ -177,3 +177,51 @@ export const getSpec = () => {
   return httpRequest(config);
 };
 
+export const getTumanlar = () => {
+  var config = {
+    url: `${url}/regions/`,
+    method: "get",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return httpRequest(config);
+};
+
+export const createTumanlar = (config) => {
+  var configs = {
+    url: `${url}/regions/`,
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "post",
+    data: config,
+  };
+  return httpRequest(configs);
+};
+
+export const deleteTumanlar = (idD) => {
+  var config = {
+    url: `${url}/regions/${idD}`,
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "delete",
+  };
+  return httpRequest(config);
+};
+export const editTumanlar = (configs, idT) => {
+  var config = {
+    url: `${url}/regions/${idT}/`,
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    method: "put",
+    data: configs,
+  };
+  return httpRequest(config);
+};
