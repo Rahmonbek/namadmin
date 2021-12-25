@@ -97,7 +97,7 @@ export default class Tumanlar extends Component {
         document.getElementById("formBasictelegram").value = res.data.telegram;
         document.getElementById("formBasicinstagram").value =
           res.data.instagram;
-        document.getElementById("formBasicfacebook").value = res.data.faccebook;
+        document.getElementById("formBasicfacebook").value = res.data.facebook;
         document.getElementById("formBasicemail").value = res.data.email;
         document.getElementById("formBasicyoutube").value = res.data.youtube;
         document.getElementById("formBasicdomain").value = res.data.domain;
