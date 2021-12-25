@@ -26,12 +26,12 @@ export default class Tumanlar extends Component {
       textF: "",
       show: false,
       showMatn: false,
-      // image: null,
-      // imageUrl: "",
-      // image_region: null,
-      // image_regionUrl: "",
+      image: null,
+      imageUrl: "",
+      image_region: null,
+      image_regionUrl: "",
       edit: null,
-      // previewImage: false,
+      previewImage: false,
     };
   }
 
@@ -44,6 +44,7 @@ export default class Tumanlar extends Component {
   openModal = () => {
     this.setState({
       show: true,
+      loading:false
     });
   };
 
@@ -58,13 +59,13 @@ export default class Tumanlar extends Component {
     this.setState({
       show: false,
       edit: null,
-      // image: null,
-      // imageUrl: null,
-      // image_region: null,
-      // image_regionUrl: null,
+      image: null,
+      imageUrl: null,
+      image_region: null,
+      image_regionUrl: null,
     });
-    // document.getElementById("formBasicimage").value = "";
-    // document.getElementById("formBasicimage_region").value = "";
+    document.getElementById("formBasicimage").value = "";
+    document.getElementById("formBasicimage_region").value = "";
     document.getElementById("formBasicname").value = "";
     document.getElementById("formBasicfull_name").value = "";
     document.getElementById("formBasicvideo").value = "";
@@ -77,6 +78,9 @@ export default class Tumanlar extends Component {
     document.getElementById("formBasicdomain").value = "";
   };
   editTumanlar = (key) => {
+    this.setState({
+      loading:true
+    })
     axios
       .get(`${url}/regions/${key}`, {
         headers: {
@@ -85,7 +89,7 @@ export default class Tumanlar extends Component {
         },
       })
       .then((res) => {
-        console.log(res.data);
+    
         document.getElementById("formBasicname").value = res.data.name;
         document.getElementById("formBasicfull_name").value =
           res.data.full_name;
@@ -95,28 +99,26 @@ export default class Tumanlar extends Component {
         document.getElementById("formBasicvideo").value = res.data.video;
         document.getElementById("formBasicphone").value = res.data.phone;
         document.getElementById("formBasictelegram").value = res.data.telegram;
-        document.getElementById("formBasicinstagram").value =
-          res.data.instagram;
-        document.getElementById("formBasicfacebook").value = res.data.faccebook;
+        document.getElementById("formBasicinstagram").value =res.data.instagram;
+        document.getElementById("formBasicfacebook").value = res.data.facebook;
         document.getElementById("formBasicemail").value = res.data.email;
         document.getElementById("formBasicyoutube").value = res.data.youtube;
         document.getElementById("formBasicdomain").value = res.data.domain;
 
-        // this.setState({
-        //   edit: res.data.id,
-        //   imageUrl: res.data.image,
-        //   previewImage: true,
-        // });
-        // this.setState({
-        //   edit: res.data.id,
-        //   image_regionUrl: res.data.image_region,
-        //   previewImage: true,
-        // });
+        this.setState({
+          edit: res.data.id,
+          imageUrl: res.data.image,
+          previewImage: true,
+          image_regionUrl: res.data.image_region,
+     
+        });
+      
       })
       .catch((err) => console.log(err));
     this.openModal();
+    
   };
-  customRequest = (e) => {
+  customRequest1 = (e) => {
     let image = e.target.files[0];
 
     this.setState({
@@ -125,7 +127,7 @@ export default class Tumanlar extends Component {
       previewImage: false,
     });
   };
-  customRequest = (e) => {
+  customRequest2 = (e) => {
     let image_region = e.target.files[0];
 
     this.setState({
@@ -147,14 +149,14 @@ export default class Tumanlar extends Component {
       "full_name",
       document.getElementById("formBasicfull_name").value ?? ""
     );
-    // formData.append(
-    //   "image_region",
-    //   document.getElementById("formBasicimage_region").value ?? ""
-    // );
-    // formData.append(
-    //   "image",
-    //   document.getElementById("formBasicimage").value ?? ""
-    // );
+    formData.append(
+      "image_region",
+      this.state.image_region ?? ""
+    );
+    formData.append(
+      "image",
+      this.state.image ?? ""
+    );
     formData.append(
       "video",
       document.getElementById("formBasicvideo").value ?? ""
@@ -189,12 +191,6 @@ export default class Tumanlar extends Component {
     );
 
     if (this.state.edit !== null) {
-      if (this.state.image !== null) {
-        formData.append("image", this.state.image ?? "");
-      }
-      if (this.state.image_region !== null) {
-        formData.append("image_region", this.state.image_region ?? "");
-      }
       editTumanlar(formData, this.state.edit)
         .then((res) => {
           message.success("Ma'lumot o'zgartirildi");
@@ -208,8 +204,6 @@ export default class Tumanlar extends Component {
         });
       this.getTumanlar();
     } else {
-      formData.append("image", this.state.image ?? "");
-      formData.append("image_region", this.state.image_region ?? "");
       createTumanlar(formData)
         .then((res) => {
           message.success("Ma'lumot saqlandi");
@@ -221,8 +215,7 @@ export default class Tumanlar extends Component {
           });
           message.error("Ma'lumot saqlanmadi");
         });
-      this.getTumanlar();
-    }
+      }
     this.closeModal();
   };
   getColumnSearchProps = (dataIndex) => ({
@@ -633,7 +626,7 @@ export default class Tumanlar extends Component {
                   <Form.Control
                     className="formInput"
                     accept=".jpg, .jpeg, .png"
-                    onChange={this.customRequest}
+                    onChange={this.customRequest1}
                     name="image_region"
                     required
                     type="file"
@@ -651,7 +644,7 @@ export default class Tumanlar extends Component {
                   <Form.Control
                     className="formInput"
                     accept=".jpg, .jpeg, .png"
-                    onChange={this.customRequest}
+                    onChange={this.customRequest2}
                     name="image"
                     required
                     type="file"
