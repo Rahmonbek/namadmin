@@ -126,6 +126,7 @@ export default class News extends Component {
         .then((res) => {
           message.success("Yangilik o'zgartirildi");
           this.getYangilik();
+
         })
         .catch((err) => {
           this.setState({
@@ -133,7 +134,6 @@ export default class News extends Component {
           });
           message.error("Yangilik o'zgartirilmadi");
         });
-      this.getYangilik();
     } else {
       formData.append("image", this.state.image ?? "");
       createYangilik(formData)
@@ -147,7 +147,6 @@ export default class News extends Component {
           });
           message.error("Yangilik saqlanmadi");
         });
-      this.getYangilik();
     }
     this.closeModal();
   };

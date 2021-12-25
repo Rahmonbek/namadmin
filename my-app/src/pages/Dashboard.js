@@ -172,7 +172,7 @@ export default class Dashboard extends Component {
       .patch(`${url}/boshqarma/${1}/`, formData, {
 
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "multipart/form-data; charset=UTF-8",
          'Authorization': `Token ${window.localStorage.getItem("token")}`
         }})
       .then((res) => {
@@ -181,7 +181,7 @@ export default class Dashboard extends Component {
         .patch(`${url}/boshqarma/${1}/`, {params:this.state.params}, {
   
           headers: {
-            "Content-type": "application/json; charset=UTF-8",
+            "Content-type": "multipart/form-data; charset=UTF-8",
            'Authorization': `Token ${window.localStorage.getItem("token")}`
           }}).then(res=>{
   
