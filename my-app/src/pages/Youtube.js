@@ -16,6 +16,7 @@ export default class Youtube extends Component {
         edit:null,
     }
     addVideo =()=>{
+     this.setState({loading:true})
       var a=document.getElementById('you').value
         var videos=this.state.school.youtube_videos
         
