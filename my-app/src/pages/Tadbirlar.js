@@ -38,6 +38,9 @@ text:text
     this.setState({
         show:true,
        })  
+      setTimeout(()=>{
+        this.setState({loading:false})
+      },1000)
   }
 
   closeMatn=()=>{
@@ -61,13 +64,14 @@ text:text
     document.getElementById('formBasictitle').value=""
 }
 editEvent=(key)=>{
+  this.setState({loading:true})
   axios.get(`${url}/events/${key}`, {
 
     headers: {
       "Content-type": "application/json; charset=UTF-8",
      'Authorization': `Token ${window.localStorage.getItem("token")}`
     }}).then((res)=>{ 
-      console.log(res.data)
+  
     document.getElementById('formBasictext').value = res.data.text; 
     document.getElementById('formBasictitle').value = res.data.title;
     document.getElementById('formBasicaddress').value = res.data.address;
@@ -76,7 +80,8 @@ editEvent=(key)=>{
     this.setState({
       edit: res.data.id,
       imageUrl: res.data.image,
-      previewImage: true
+      previewImage: true,
+      
     }) 
   }).catch(err=>console.log(err))
   this.openModal()

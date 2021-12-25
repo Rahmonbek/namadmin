@@ -38,7 +38,9 @@ butK.push(false)
   })
 }
 editMurojat=(id)=>{
-
+this.setState({
+  loader:true
+})
   axios.patch(`${url}/murojaat/${id}/`, {seen:true}, {
 
     headers: {
@@ -48,12 +50,18 @@ editMurojat=(id)=>{
    this.getMurojat()
   }).catch((err)=>{
     message.success("Ma'lumot saqlanmadi");
+    this.setState({
+      loader:false
+    })
    
    
   })
 
 }
 deleteMurojat=(id)=>{
+  this.setState({
+    loader:true
+  })
   axios.delete(`${url}/murojaat/${id}/`, {
 
     headers: {
@@ -63,7 +71,9 @@ deleteMurojat=(id)=>{
    this.getMurojat()
   }).catch((err=>{
     message.success("Ma'lumot o'chirilmadi");
-   
+    this.setState({
+      loader:false
+    })
   }))
 
 }
@@ -118,7 +128,7 @@ componentDidMount(){
  <Button
             type="danger"
             icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
-            loading={this.state.butD[key]}
+            loader={this.state.butD[key]}
             style={{color:'white', fontSize:'15px'}}
             onClick={()=>{this.deleteMurojat(item.id)}}
           >
@@ -127,7 +137,7 @@ componentDidMount(){
           <Button
             type="primary"
             icon={<EyeOutlined  style={{position:'relative', top:'-5px'}} />}
-            loading={this.state.butK[key]}
+            loader={this.state.butK[key]}
             style={{color:'white', fontSize:'15px'}}
             onClick={()=>{this.editMurojat(item.id)}}
           >
@@ -153,7 +163,7 @@ componentDidMount(){
                             type="danger"
                             style={{color:'white', fontSize:'15px'}}
                             icon={<DeleteOutlined  style={{position:'relative', top:'-5px'}} />}
-                            loading={this.state.butD[key]}
+                            loader={this.state.butD[key]}
                             onClick={()=>{this.deleteMurojat(item.id)}}
                           >
                             O'chirish

@@ -54,7 +54,7 @@ export default class Oqituvchilar extends Component {
     options: [],
     image: null,
     imageUrl: null,
-    speciality: [],
+    spec: [],
     teach: {},
     fullname: "",
    qabul: "",
@@ -66,11 +66,14 @@ export default class Oqituvchilar extends Component {
     this.setState({
       visible: true,
     });
+    setTimeout(()=>{
+      this.setState({loading:false})
+    },1000)
   };
   hideModal = () => {
     this.setState({
       visible: false,
-      speciality: [],
+      spec: [],
       image: null,
       edit: null,
       imageUrl: null,
@@ -111,7 +114,9 @@ export default class Oqituvchilar extends Component {
   };
 
   editXodim = (key) => {
+
     this.setState({
+      loading:true,
       fullname: this.state.teachers[key].full_name,
       phone: this.state.teachers[key].phone,
       email: this.state.teachers[key].email,
@@ -119,7 +124,7 @@ export default class Oqituvchilar extends Component {
       description: this.state.teachers[key].description,
       edit: this.state.teachers[key].id,
       imageUrl: this.state.teachers[key].image,
-      speciality: this.state.teachers[key].speciality,
+      spec: this.state.teachers[key].spec,
       previewImage: true,
     });
     this.openModal();
@@ -131,7 +136,7 @@ export default class Oqituvchilar extends Component {
     var email = document.getElementById("email").value;
     var description = document.getElementById("description").value;
     var qabul = document.getElementById("qabul").value;
-    var speciality = this.state.speciality;
+    var spec = this.state.spec;
 
     let formData = new FormData();
 
@@ -141,7 +146,7 @@ export default class Oqituvchilar extends Component {
     formData.append("email", email ?? "");
     
     formData.append("description", description ?? "");
-    formData.append("spec", speciality ?? "");
+    formData.append("spec", spec ?? "");
 
     if (this.state.edit !== null) {
       if (this.state.image !== null) {
@@ -225,7 +230,7 @@ export default class Oqituvchilar extends Component {
     });
   };
   handleChange = (selectedOption) => {
-    this.setState({ speciality: selectedOption });
+    this.setState({ spec: selectedOption });
   };
   componentDidMount() {
     this.getXodim();
@@ -284,17 +289,14 @@ export default class Oqituvchilar extends Component {
                                 <p>
                                   <b>Lavozimi: </b>
                                   
-                                  {this.echoOptions(item.speciality) }
+                                  {this.echoOptions(item.spec) }
                                 
                                 </p>
                                 <p>
                                   <b>Qabul kunlari: </b>
                                   {item.qabul}
                                 </p>
-                                <p>
-                                  <b>Mutaxassislik: </b>
-                                  {item.qabul}
-                                </p>
+                               
                                 <p>
                                   <b>Telefon raqami: </b>
                                   {item.phone}
@@ -507,12 +509,12 @@ export default class Oqituvchilar extends Component {
                     </Form.Group>
             
                    
-                <Form.Group className="mb-3" controlId="speciality">
+                <Form.Group className="mb-3" controlId="spec">
                   <Form.Label>Lavozimi</Form.Label>
                   <Select
                     placeholder="Lavozimi"
                     value={
-                      this.state.speciality !== null? this.state.speciality : ""
+                      this.state.spec !== null? this.state.spec : ""
                     }
                    
                     style={{ width: "100%" }}
