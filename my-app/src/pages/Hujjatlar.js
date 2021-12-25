@@ -14,13 +14,14 @@ export default class Hujjatlar extends Component {
         hujjat:null,
         loading:false,
         edit:null,
+        
     }
     componentDidMount() {
         this.getHujjat();
       };
     getHujjat = () =>{
         axios.get(`${url}/hujjatlar/`).then((res) => {
-         console.log(res.data)
+         
             this.setState({
               hujjat: res.data,
               loading: false,
@@ -32,6 +33,9 @@ export default class Hujjatlar extends Component {
         
     };
     addHujjat=()=>{
+      this.setState({
+        loading:true
+      })
       var title=document.getElementById('title').value
       var type=document.getElementById('type').value
       var link=document.getElementById('link').value
@@ -47,7 +51,9 @@ if(this.state.edit===null){
         this.getHujjat()
     }).catch(err=>{
        message.error("Ma'lumot qo'shilmadi")
-
+       this.setState({
+        loading:false
+      })
     })
    
 }else{
@@ -61,7 +67,9 @@ if(this.state.edit===null){
        this.getHujjat()
     }).catch(err=>{
        message.error("Ma'lumot o'zgartirilmadi")
-
+       this.setState({
+        loading:false
+      })
     })
 }}
    deleteHujjat=(id)=>{
@@ -112,7 +120,7 @@ if(this.state.edit===null){
     
     
     <Button variant="primary" type="button" onClick={this.addHujjat}>
-    Submit
+    Hujjat qo'shish
   </Button>
 </Form>
 
@@ -121,7 +129,7 @@ if(this.state.edit===null){
 <Table striped bordered hover variant="light">
   <thead>
     <tr>
-      <th>T/R</th>
+      
       <th>Hujjat</th>
       <th>O'zgartirish</th>
       <th>O'chirish</th>
@@ -129,11 +137,13 @@ if(this.state.edit===null){
   </thead>
   <tbody>
    {
+     
        this.state.hujjat!==null?this.state.hujjat.map((item,key)=>{
+         
    if(item.type===1){
        return(
     <tr>
-    <td>{key+1}</td>
+    
     <td><a href={item.link} target="_blank">{item.title}</a></td>
     <td><Button variant="success" onClick={()=>{this.editHujjat(key)}}>O'zgartirish</Button></td>
     <td><Button variant="danger" onClick={()=>{this.deleteHujjat(item.id)}}>O'chirish</Button></td>
@@ -152,7 +162,7 @@ if(this.state.edit===null){
 <Table striped bordered hover variant="light">
   <thead>
     <tr>
-      <th>T/R</th>
+      
       <th>Hujjat</th>
       <th>O'zgartirish</th>
       <th>O'chirish</th>
@@ -164,7 +174,7 @@ if(this.state.edit===null){
    if(item.type===2){
        return(
     <tr>
-    <td>{key+1}</td>
+    
     <td><a href={item.link} target="_blank">{item.title}</a></td>
     <td><Button variant="success" onClick={()=>{this.editHujjat(key)}}>O'zgartirish</Button></td>
     <td><Button variant="danger" onClick={()=>{this.deleteHujjat(item.id)}}>O'chirish</Button></td>
@@ -183,7 +193,7 @@ if(this.state.edit===null){
 <Table striped bordered hover variant="light">
   <thead>
     <tr>
-      <th>T/R</th>
+      
       <th>Hujjat</th>
       <th>O'zgartirish</th>
       <th>O'chirish</th>
@@ -195,7 +205,7 @@ if(this.state.edit===null){
    if(item.type===3){
        return(
     <tr>
-    <td>{key+1}</td>
+    
     <td><a href={item.link} target="_blank">{item.title}</a></td>
     <td><Button variant="success" onClick={()=>{this.editHujjat(key)}}>O'zgartirish</Button></td>
     <td><Button variant="danger" onClick={()=>{this.deleteHujjat(item.id)}}>O'chirish</Button></td>
