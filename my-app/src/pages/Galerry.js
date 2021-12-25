@@ -21,13 +21,13 @@ export default class Gallery extends Component {
     };
     addVideo =()=>{
       const formData = new FormData();
-      console.log(this.state.image)
+ 
       formData.append("foto_lavha", this.state.images);
         var config ={foto_lavha:this.state.image}
         
       if(this.state.edit===null){
         axios
-        .post(`${url}/fotos/`, formData, {
+        .post(`${url}/fotos/`, config, {
   
           headers: {
            'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -48,7 +48,7 @@ export default class Gallery extends Component {
        
       }else{
         axios
-        .patch(`${url}/fotos/${this.state.edit}`, formData, {
+        .patch(`${url}/fotos/${this.state.edit}`, config, {
   
           headers: {
            'Authorization': `Token ${window.localStorage.getItem("token")}`
