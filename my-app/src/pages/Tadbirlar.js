@@ -40,7 +40,7 @@ text:text
        })  
       setTimeout(()=>{
         this.setState({loading:false})
-      },1000)
+      },2000)
   }
 
   closeMatn=()=>{
