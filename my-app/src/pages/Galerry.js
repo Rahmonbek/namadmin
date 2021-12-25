@@ -129,7 +129,7 @@ export default class Gallery extends Component {
         ) : (<div>
             <div>
                 <Form  className='formnew'>
-                  <h4>{this.state.edit===null?<p>Yangi video qo'shish</p>:<p>Tanlangan videoni almashtirish</p>}</h4>
+                  <h4>{this.state.edit===null?<p>Yangi rasm qo'shish</p>:<p>Tanlangan rasmni almashtirish</p>}</h4>
                   <Form.Group className="mb-3" controlId="ima">
                         
                         <Form.Control
@@ -140,7 +140,7 @@ export default class Gallery extends Component {
                           onChange={this.customRequest}
                         />
                       </Form.Group> <br/>
-                <Button type="primary" onClick={this.addVideo} htmlType='button'>Videoni qo'shish</Button>
+                <Button type="primary" onClick={this.addVideo} htmlType='button'>Rasmni qo'shish</Button>
                 </Form>
             </div>
             <Row>{

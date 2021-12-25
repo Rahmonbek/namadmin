@@ -44,8 +44,11 @@ export default class Tumanlar extends Component {
   openModal = () => {
     this.setState({
       show: true,
-      loading:false
+  
     });
+    setTimeout(()=>{
+this.setState({loading:false})
+    }, 2000)
   };
 
   closeMatn = () => {
@@ -93,9 +96,6 @@ export default class Tumanlar extends Component {
         document.getElementById("formBasicname").value = res.data.name;
         document.getElementById("formBasicfull_name").value =
           res.data.full_name;
-        // document.getElementById("formBasicimage_region").value =
-        //   res.data.image_region;
-        // document.getElementById("formBasicimage").value = res.data.image;
         document.getElementById("formBasicvideo").value = res.data.video;
         document.getElementById("formBasicphone").value = res.data.phone;
         document.getElementById("formBasictelegram").value = res.data.telegram;
@@ -149,14 +149,7 @@ export default class Tumanlar extends Component {
       "full_name",
       document.getElementById("formBasicfull_name").value ?? ""
     );
-    formData.append(
-      "image_region",
-      this.state.image_region ?? ""
-    );
-    formData.append(
-      "image",
-      this.state.image ?? ""
-    );
+   
     formData.append(
       "video",
       document.getElementById("formBasicvideo").value ?? ""
@@ -191,6 +184,18 @@ export default class Tumanlar extends Component {
     );
 
     if (this.state.edit !== null) {
+      if(this.state.image_region!==null){
+        formData.append(
+          "image_region",
+          this.state.image_region ?? ""
+        );
+      }
+      if(this.state.image!==null){
+        formData.append(
+          "image",
+          this.state.image ?? ""
+        );
+      }
       editTumanlar(formData, this.state.edit)
         .then((res) => {
           message.success("Ma'lumot o'zgartirildi");
@@ -204,6 +209,18 @@ export default class Tumanlar extends Component {
         });
       this.getTumanlar();
     } else {
+      if(this.state.image_region!==null){
+        formData.append(
+          "image_region",
+          this.state.image_region ?? ""
+        );
+      }
+      if(this.state.image!==null){
+        formData.append(
+          "image",
+          this.state.image ?? ""
+        );
+      }
       createTumanlar(formData)
         .then((res) => {
           message.success("Ma'lumot saqlandi");
@@ -631,11 +648,11 @@ export default class Tumanlar extends Component {
                     required
                     type="file"
                   />
-                  <br />
-                  <br />
-                  {this.state.previewImage
+                  {/* <br />
+                  <br /> */}
+                  {/* {this.state.previewImage
                     ? ImageDemo(this.state.image_regionUrl)
-                    : ""}
+                    : ""} */}
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicimage">
@@ -649,11 +666,11 @@ export default class Tumanlar extends Component {
                     required
                     type="file"
                   />
-                  <br />
+                  {/* <br />
                   <br />
                   {this.state.previewImage
                     ? ImageDemo(this.state.imageUrl)
-                    : ""}
+                    : ""} */}
                 </Form.Group>
 
                 <Form.Group controlId="formBasicvideo" className="mb-3">
