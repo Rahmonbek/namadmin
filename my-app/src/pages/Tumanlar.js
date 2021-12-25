@@ -116,24 +116,24 @@ export default class Tumanlar extends Component {
       .catch((err) => console.log(err));
     this.openModal();
   };
-  // customRequest = (e) => {
-  //   let image = e.target.files[0];
+  customRequest = (e) => {
+    let image = e.target.files[0];
 
-  //   this.setState({
-  //     image: image,
-  //     imageUrl: image,
-  //     previewImage: false,
-  //   });
-  // };
-  // customRequest = (e) => {
-  //   let image_region = e.target.files[0];
+    this.setState({
+      image: image,
+      imageUrl: image,
+      previewImage: false,
+    });
+  };
+  customRequest = (e) => {
+    let image_region = e.target.files[0];
 
-  //   this.setState({
-  //     image_region: image_region,
-  //     image_regionUrl: image_region,
-  //     previewImage: false,
-  //   });
-  // };
+    this.setState({
+      image_region: image_region,
+      image_regionUrl: image_region,
+      previewImage: false,
+    });
+  };
   createTumanlar = () => {
     this.setState({
       loading: true,
@@ -189,12 +189,12 @@ export default class Tumanlar extends Component {
     );
 
     if (this.state.edit !== null) {
-      // if (this.state.image !== null) {
-      //   formData.append("image", this.state.image ?? "");
-      // }
-      // if (this.state.image_region !== null) {
-      //   formData.append("image_region", this.state.image_region ?? "");
-      // }
+      if (this.state.image !== null) {
+        formData.append("image", this.state.image ?? "");
+      }
+      if (this.state.image_region !== null) {
+        formData.append("image_region", this.state.image_region ?? "");
+      }
       editTumanlar(formData, this.state.edit)
         .then((res) => {
           message.success("Ma'lumot o'zgartirildi");
@@ -208,8 +208,8 @@ export default class Tumanlar extends Component {
         });
       this.getTumanlar();
     } else {
-      // formData.append("image", this.state.image ?? "");
-      // formData.append("image_region", this.state.image_region ?? "");
+      formData.append("image", this.state.image ?? "");
+      formData.append("image_region", this.state.image_region ?? "");
       createTumanlar(formData)
         .then((res) => {
           message.success("Ma'lumot saqlandi");
@@ -379,28 +379,28 @@ export default class Tumanlar extends Component {
         key: "full_name",
         ...this.getColumnSearchProps("full_name"),
       },
-      // {
-      //   title: "Bolimning rasmi",
-      //   dataIndex: "image_region",
-      //   key: "image_region",
-      //   width: "20%",
+      {
+        title: "Bolimning rasmi",
+        dataIndex: "image_region",
+        key: "image_region",
+        width: "20%",
 
-      //   render: (image_region) => {
-      //     return (
-      //       <img src={image_region} style={{ width: "100%" }} alt="rasm" />
-      //     );
-      //   },
-      // },
-      // {
-      //   title: "Mudirning rasmi",
-      //   dataIndex: "image",
-      //   key: "image",
-      //   width: "20%",
+        render: (image_region) => {
+          return (
+            <img src={image_region} style={{ width: "100%" }} alt="rasm" />
+          );
+        },
+      },
+      {
+        title: "Mudirning rasmi",
+        dataIndex: "image",
+        key: "image",
+        width: "20%",
 
-      //   render: (image) => {
-      //     return <img src={image} style={{ width: "100%" }} alt="rasm" />;
-      //   },
-      // },
+        render: (image) => {
+          return <img src={image} style={{ width: "100%" }} alt="rasm" />;
+        },
+      },
 
       {
         title: "Bolimning videosi",
@@ -627,7 +627,7 @@ export default class Tumanlar extends Component {
                   />
                 </Form.Group>
 
-                {/* <Form.Group className="mb-3" controlId="formBasicimage_region">
+                <Form.Group className="mb-3" controlId="formBasicimage_region">
                   <Form.Label>Bo'lim rasmi</Form.Label>
                   <br />
                   <Form.Control
@@ -643,9 +643,9 @@ export default class Tumanlar extends Component {
                   {this.state.previewImage
                     ? ImageDemo(this.state.image_regionUrl)
                     : ""}
-                </Form.Group> */}
+                </Form.Group>
 
-                {/* <Form.Group className="mb-3" controlId="formBasicimage">
+                <Form.Group className="mb-3" controlId="formBasicimage">
                   <Form.Label>Mudirning rasmi</Form.Label>
                   <br />
                   <Form.Control
@@ -661,7 +661,7 @@ export default class Tumanlar extends Component {
                   {this.state.previewImage
                     ? ImageDemo(this.state.imageUrl)
                     : ""}
-                </Form.Group> */}
+                </Form.Group>
 
                 <Form.Group controlId="formBasicvideo" className="mb-3">
                   <Form.Label>Bo'lim videosi</Form.Label>

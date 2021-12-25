@@ -137,6 +137,20 @@ export default class Dashboard extends Component {
     if (this.state.images.text_afzallik_1) {
       formData.append("text_afzallik_1", this.state.images.text_afzallik_1);
     }
+    if (this.state.images.statistics_maktab) {
+      formData.append("statistics_maktab", this.state.images.statistics_maktab);
+    }
+    if (this.state.images.statistics_pupils) {
+      formData.append("statistics_pupils", this.state.images.statistics_pupils);
+    }
+    if (this.state.images.statistics_teachers) {
+      formData.append("statistics_teachers", this.state.images.statistics_teachers);
+    }
+    if (this.state.images.statistics_talim_tillari) {
+      formData.append("statistics_talim_tillari", this.state.images.statistics_talim_tillari);
+    }
+
+   
 
     if (this.state.images.text_afzallik_2) {
       formData.append("text_afzallik_2", this.state.images.text_afzallik_2);
@@ -496,6 +510,135 @@ export default class Dashboard extends Component {
                   </Row>
                   <Row style={{ marginTop: "20px" }}>
                     <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Maktablar soni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="statistics_maktab"
+                          type="text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.statistics_maktab
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          O'quvchilar soni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="statistics_pupils"
+                          type="text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.statistics_pupils
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          O'qituvchilar soni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="statistics_teachers"
+                          type="text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.statistics_teachers
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  
+                  <Row style={{ marginTop: "20px" }}>
+                    <Col
+                      sm={12}
+                      style={{ alignItems: "center", justifyContent: "center" }}
+                      md={12}
+                      lg={12}
+                    >
+                      <Form.Group className="mb-3">
+                        <Form.Label
+                          style={{
+                            borderBottom: "1px solid black",
+                            marginBottom: "20px",
+                            fontSize: "16px",
+                          }}
+                        >
+                          Ta'lim tillari soni
+                        </Form.Label>
+                        <Form.Control
+                          className="formInput"
+                          name="statistics_talim_tillari"
+                          type="text"
+                          defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.statistics_talim_tillari
+                              : ""
+                          }
+                          onChange={(e) => this.customText(e)}
+                        />
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                  
+               
+                  <Row style={{ marginTop: "20px" }}>
+                    
+                    <Col
                       sm={8}
                       style={{ alignItems: "center", justifyContent: "center" }}
                       md={8}
@@ -537,11 +680,13 @@ export default class Dashboard extends Component {
                               : this.state.img
                             : ""
                         }
-                        style={{ width: "70px" }}
+                        style={{ width: "150px" }}
                       ></video>
                     </Col>
                   </Row>
-                  <Row style={{ marginTop: "20px" }}>
+                 </Col>
+                <Col lg={6} md={12} sm={12}>
+                <Row style={{ marginTop: "20px" }}>
                     <Col
                       sm={8}
                       style={{ alignItems: "center", justifyContent: "center" }}
@@ -584,7 +729,7 @@ src={
                               : this.state.img
                             : ""
                         }
-                        style={{ width: "70px" }}
+                        style={{ width: "150px" }}
                         ></video>
                     </Col>
                   </Row>
@@ -622,9 +767,7 @@ src={
                       </Form.Group>
                     </Col>
                   </Row>
-                </Col>
-                <Col lg={6} md={12} sm={12}>
-                  
+                 
                 <Row style={{ marginTop: "20px" }}>
                     <Col
                       sm={8}
@@ -668,7 +811,7 @@ src={
                               : this.state.img
                             : ""
                         }
-                        style={{ width: "70px" }}
+                        style={{ width: "150px" }}
                         ></video>
                     </Col>
                   </Row>
@@ -748,7 +891,7 @@ src={
                               : this.state.img
                             : ""
                         }
-                        style={{ width: "70px" }}
+                        style={{ width: "150px" }}
                       />
                     </Col>
                   </Row>

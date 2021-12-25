@@ -14,20 +14,24 @@ export default class Gallery extends Component {
         school:null,
         loading:true,
         edit:null,
+        image:null,
     }
     customRequest = (e) => {
       let image = e.target.files[0];
   this.setState({ image: image });
     };
     addVideo =()=>{
+      this.setState({
+        loading:true,
+      })
       const formData = new FormData();
  
-      formData.append("foto_lavha", this.state.images);
+      formData.append("foto_lavha", this.state.image);
         var config ={foto_lavha:this.state.image}
         
       if(this.state.edit===null){
         axios
-        .post(`${url}/fotos/`, config, {
+        .post(`${url}/fotos/`, formData, {
   
           headers: {
            'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -48,7 +52,7 @@ export default class Gallery extends Component {
        
       }else{
         axios
-        .patch(`${url}/fotos/${this.state.edit}`, config, {
+        .patch(`${url}/fotos/${this.state.edit}/`, formData, {
   
           headers: {
            'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -94,10 +98,12 @@ export default class Gallery extends Component {
        })
      }
     deleteVideo=(id)=>{
-     
+     this.setState({
+       loading:true,
+     })
     
       axios
-      .delete(`${url}/fotos/${id}`, {
+      .delete(`${url}/fotos/${id}/`, {
 
         headers: {
          'Authorization': `Token ${window.localStorage.getItem("token")}`
@@ -144,12 +150,12 @@ export default class Gallery extends Component {
                 <Col lg={4} md={12} sm={12} style={{padding:'20px'}}>
                <div className="you_col" >
                 <img
-            style={{width:'100%', height:'250px'}}
+            style={{width:'100%', height:'200px'}}
   src={item.foto_lavha}                 
   className="you"                
   alt="..."
   />
-  <div className="you_btn">  <Button
+  <div className="you_btn" style={{marginTop:'20px'}}>   <Button
             type="primary"
             icon={<EditOutlined style={{position:'relative', top:'-5px'}} />}
           onClick={()=>{this.editVideo(item.id)}}  
