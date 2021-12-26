@@ -266,7 +266,7 @@ export default class Oqituvchilar extends Component {
                           style={{ marginTop: "20px" }}
                         >
                           <Card className={style.root}>
-                            <CardHeader title="Xodim" />
+                            <CardHeader title={this.echoOptions(item.spec) } />
                             {item.image !== null ? (
                               <CardMedia
                                 className={style.media}
@@ -286,12 +286,7 @@ export default class Oqituvchilar extends Component {
                                   <b>F.I.Sh.: </b>
                                   {item.full_name}
                                 </p>
-                                <p>
-                                  <b>Lavozimi: </b>
-                                  
-                                  {this.echoOptions(item.spec) }
-                                
-                                </p>
+                               
                                 <p>
                                   <b>Qabul kunlari: </b>
                                   {item.qabul}
