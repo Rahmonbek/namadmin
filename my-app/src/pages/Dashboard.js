@@ -44,6 +44,7 @@ export default class Dashboard extends Component {
         params: res.data[0].params,
         domain: res.data[0].domain,
         loading: false,
+        images:{},
       });
     }).catch(err=>{
       console.log(err)
@@ -656,10 +657,15 @@ export default class Dashboard extends Component {
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          accept=".mp4"
+                          placeholder="Videoning linkini kiriting"
                           name="video1"
-                          type="file"
-                          onChange={this.customRequest}
+                          type="url"
+                           defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.video1
+                              : ""
+                          }
+                         onChange={(e) => this.customText(e)}
                         />
                       </Form.Group>
                     </Col>
@@ -705,11 +711,16 @@ export default class Dashboard extends Component {
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          accept=".mp4"
+                          placeholder="Videoning linkini kiriting"
                           name="video2"
-                          type="file"
-                          onChange={this.customRequest}
-                        />
+                          type="url"
+                           defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.video2
+                              : ""
+                          }
+                         onChange={(e) => this.customText(e)}
+/>
                       </Form.Group>
                     </Col>
                     <Col
@@ -787,10 +798,15 @@ src={
                         </Form.Label>
                         <Form.Control
                           className="formInput"
-                          accept=".mp4"
+                          placeholder="Videoning linkini kiriting"
                           name="video3"
-                          type="file"
-                          onChange={this.customRequest}
+                          type="url"
+                           defaultValue={
+                            this.state.school !== null
+                              ? this.state.school.video3
+                              : ""
+                          }
+                         onChange={(e) => this.customText(e)}
                         />
                       </Form.Group>
                     </Col>
