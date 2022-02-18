@@ -9,6 +9,7 @@ import Tumanlar from "./pages/Tumanlar";
 import Youtube from "./pages/Youtube";
 import Hujjatlar from "./pages/Hujjatlar";
 import Gallery from "./pages/Galerry";
+import Projects from "./pages/Projects";
 const routes = [
   {
     path: "/login",
@@ -59,6 +60,10 @@ const routes = [
       {
         path: "/home/tumanlar/uz",
         component: Tumanlar,
+      },
+      {
+        path: "/home/loyihalar/uz",
+        component: Projects,
       },
     ],
   },

@@ -8,14 +8,21 @@ import { FaCrown, FaComments } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "antd/dist/antd.css";
 import Top from "./pages/Top";
-import { Container, Row, Col,} from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Menu } from "antd";
-import { AppstoreOutlined, VideoCameraOutlined, CameraOutlined,UsergroupAddOutlined, BankOutlined  } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  VideoCameraOutlined,
+  CameraOutlined,
+  UsergroupAddOutlined,
+  BankOutlined,
+} from "@ant-design/icons";
 import { BiNews } from "react-icons/bi";
+import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { FaRibbon } from "react-icons/fa";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { isArray } from "lodash";
-import { Redirect, NavLink  } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import Loader from "./pages/LoaderHome";
 const Home = ({ routes }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -59,7 +66,6 @@ const Home = ({ routes }) => {
       name: "Tadbirlar",
       icon: <FaRibbon />,
     },
-
     {
       id: 18,
       path: "/home/murojaatlar/uz",
@@ -78,11 +84,16 @@ const Home = ({ routes }) => {
       name: "Tumanlar",
       icon: <BankOutlined />,
     },
+    {
+      id: 21,
+      path: "/home/loyihalar/uz",
+      name: "Loyihalar",
+      icon: <AiOutlineFundProjectionScreen />,
+    },
   ];
   useEffect(() => {
     window.addEventListener("resize", resize.bind(this));
     resize();
-   
   }, []);
 
   const resize = () => {
@@ -139,7 +150,12 @@ const Home = ({ routes }) => {
                                   icon={item.icon}
                                   className={styles.menuitem}
                                 >
-                                  <NavLink activeStyle={{color:'blue'}} to={item.path}>{item.name}</NavLink>
+                                  <NavLink
+                                    activeStyle={{ color: "blue" }}
+                                    to={item.path}
+                                  >
+                                    {item.name}
+                                  </NavLink>
                                 </Menu.Item>
                               );
                             })
