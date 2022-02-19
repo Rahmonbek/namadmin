@@ -32,11 +32,12 @@ export class Projects extends Component {
   openModal = () => {
     this.setState({
       show: true,
+      loader:false
     });
   };
 
   closeModal = () => {
-    document.getElementById("file").value = "";
+   
     this.setState({
       show: false,
       editId: null,
@@ -49,15 +50,18 @@ export class Projects extends Component {
   };
 
   getProject = () => {
+    this.closeModal();
     getProjects()
       .then((res) => {
         var projects = res.data;
         for (let i = 0; i < projects.length; i++) {
           projects[i].key = i + 1;
         }
-        this.setState({ projects, loader:false });
+        this.setState({ projects:projects, loader:false });
+      
       })
       .catch((err) => message.error("Loyihalar topilmadi!"));
+      
   };
 
   getTuman = () => {
@@ -113,8 +117,9 @@ export class Projects extends Component {
       editProjects(data, this.state.editId)
         .then((res) => {
           message.success("Ma'lumot o'zgartirildi");
+          
           this.getProject();
-          this.closeModal();
+      
         })
         .catch((err) => {message.error("Ma'lumot o'zgartirilmadi!");  this.setState({loader:false})});
     }
@@ -347,7 +352,7 @@ export class Projects extends Component {
           return (
             <Button
               type="danger"
-              onDoubleClick={() => {
+              onClick={() => {
                 this.deleteProject(id);
               }}
             >
@@ -359,8 +364,9 @@ export class Projects extends Component {
     ];
     return (
       <div>
-        {this.state.loading === true ? (
-          <Loader />
+        {this.state.loader ? (
+          <>
+          <Loader /></>
         ) : (
           <div>
             <Button type="primary" onClick={this.openModal}>
