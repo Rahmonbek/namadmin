@@ -254,3 +254,49 @@ export const deleteProjects = (id) => {
   };
   return httpRequest(config);
 };
+
+export const getPrezentatsiyalar = () => {
+  var config = {
+    url: `${url}/presentations/`,
+    method: "get",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return httpRequest(config);
+};
+
+export const createPrezentatsiyalar = (data) => {
+  var config = {
+    url: `${url}/presentations/`,
+    method: "post",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    data: data,
+  };
+  return httpRequest(config);
+};
+
+export const editPrezentatsiyalar = (data, id) => {
+  var config = {
+    url: `${url}/presentations/${id}/`,
+    method: "patch",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+    data: data,
+  };
+  return httpRequest(config);
+};
+
+export const deletePrezentatsiyalar = (id) => {
+  var config = {
+    url: `${url}/presentations/${id}/`,
+    method: "delete",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return httpRequest(config);
+};

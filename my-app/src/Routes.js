@@ -10,6 +10,7 @@ import Youtube from "./pages/Youtube";
 import Hujjatlar from "./pages/Hujjatlar";
 import Gallery from "./pages/Galerry";
 import Projects from "./pages/Projects";
+import Prezentatsiyalar from "./pages/Prezentatsiyalar";
 const routes = [
   {
     path: "/login",
@@ -64,6 +65,10 @@ const routes = [
       {
         path: "/home/loyihalar/uz",
         component: Projects,
+      },
+      {
+        path: "/home/prezentatsiyalar/uz",
+        component: Prezentatsiyalar,
       },
     ],
   },

@@ -90,6 +90,12 @@ const Home = ({ routes }) => {
       name: "Loyihalar",
       icon: <AiOutlineFundProjectionScreen />,
     },
+    {
+      id: 22,
+      path: "/home/prezentatsiyalar/uz",
+      name: "Prezentatsiyalar",
+      icon: <AiOutlineFundProjectionScreen />,
+    },
   ];
   useEffect(() => {
     window.addEventListener("resize", resize.bind(this));
