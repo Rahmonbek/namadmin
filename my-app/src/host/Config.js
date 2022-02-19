@@ -300,3 +300,25 @@ export const deletePrezentatsiyalar = (id) => {
   };
   return httpRequest(config);
 };
+
+export const getComments = () => {
+  var config = {
+    url: `${url}/comments/`,
+    method: "get",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return httpRequest(config);
+};
+
+export const deleteComments = (id) => {
+  var config = {
+    url: `${url}/comments/${id}/`,
+    method: "delete",
+    headers: {
+      Authorization: `Token ${window.localStorage.getItem("token")}`,
+    },
+  };
+  return httpRequest(config);
+};

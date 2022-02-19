@@ -6,8 +6,10 @@ import { SearchOutlined, DownloadOutlined } from "@ant-design/icons";
 import { Form } from "react-bootstrap";
 import {
   createProjects,
+  deleteComments,
   deleteProjects,
   editProjects,
+  getComments,
   getProjects,
   getTumanlar,
 } from "../host/Config";
@@ -19,6 +21,8 @@ export class Projects extends Component {
     searchText: "",
     searchedColumn: "",
     projects: [],
+    comments: [],
+    comment: null,
     tumanlar: [],
     show: false,
     file: null,
@@ -27,17 +31,18 @@ export class Projects extends Component {
     editId: null,
     download: 0,
     keyId: null,
+    commentId: null,
+    showComment: false,
   };
 
   openModal = () => {
     this.setState({
       show: true,
-      loader:false
+      loader: false,
     });
   };
 
   closeModal = () => {
-   
     this.setState({
       show: false,
       editId: null,
@@ -49,6 +54,19 @@ export class Projects extends Component {
     });
   };
 
+  openCommentModal = (id) => {
+    this.setState({
+      showComment: true,
+      commentId: id,
+      loader: true,
+    });
+    this.filterComments(id);
+  };
+
+  closeCommentModal = () => {
+    this.setState({ showComment: false, commentId: null });
+  };
+
   getProject = () => {
     this.closeModal();
     getProjects()
@@ -57,11 +75,15 @@ export class Projects extends Component {
         for (let i = 0; i < projects.length; i++) {
           projects[i].key = i + 1;
         }
-        this.setState({ projects:projects, loader:false });
-      
+        this.setState({ projects: projects, loader: false });
       })
       .catch((err) => message.error("Loyihalar topilmadi!"));
-      
+  };
+
+  getComment = () => {
+    getComments().then((res) => {
+      this.setState({ comments: res.data });
+    });
   };
 
   getTuman = () => {
@@ -71,7 +93,7 @@ export class Projects extends Component {
   };
 
   saveProject = () => {
-    this.setState({loader:true})
+    this.setState({ loader: true });
     var data = new FormData();
     if (this.state.editId === null) {
       if (this.state.name === "") {
@@ -93,7 +115,10 @@ export class Projects extends Component {
           this.getProject();
           this.closeModal();
         })
-        .catch((err) => {message.error("Ma'lumot saqlanmadi!");  this.setState({loader:false})});
+        .catch((err) => {
+          message.error("Ma'lumot saqlanmadi!");
+          this.setState({ loader: false });
+        });
     } else {
       if (this.state.name !== this.state.projects[this.state.keyId].name) {
         data.append("name", this.state.name);
@@ -117,20 +142,21 @@ export class Projects extends Component {
       editProjects(data, this.state.editId)
         .then((res) => {
           message.success("Ma'lumot o'zgartirildi");
-          
+
           this.getProject();
-      
         })
-        .catch((err) => {message.error("Ma'lumot o'zgartirilmadi!");  this.setState({loader:false})});
+        .catch((err) => {
+          message.error("Ma'lumot o'zgartirilmadi!");
+          this.setState({ loader: false });
+        });
     }
   };
 
   editProject = (id) => {
-
     this.setState({
       editId: this.state.projects[id].id,
       keyId: id,
-      loader:true,
+      loader: true,
       name: this.state.projects[id].name,
       file: this.state.projects[id].file,
       download:
@@ -146,13 +172,16 @@ export class Projects extends Component {
   };
 
   deleteProject = (id) => {
-    this.setState({loader:true})
+    this.setState({ loader: true });
     deleteProjects(id)
       .then((res) => {
         message.success("Ma'lumot o'chirildi");
         this.getProject();
       })
-      .catch((err) => {message.error("Ma'lumot o'chirilmadi!");  this.setState({loader:false})});
+      .catch((err) => {
+        message.error("Ma'lumot o'chirilmadi!");
+        this.setState({ loader: false });
+      });
   };
 
   changeFile = (e) => {
@@ -163,8 +192,27 @@ export class Projects extends Component {
     this.setState({ name: e.target.value });
   };
 
+  changeDownload = (e) => {
+    this.setState({ download: e.target.value });
+  };
+
   selectedKey = (e) => {
     this.setState({ selectKey: e });
+  };
+
+  deleteComment = (id) => {
+    this.setState({ loader: true });
+    deleteComments(id)
+      .then((res) => {
+        this.getComment();
+        this.closeCommentModal();
+        message.success("Izoh o'chirildi");
+        this.setState({ loader: false });
+      })
+      .catch((err) => {
+        this.setState({ loader: false });
+        message.error("Izoh o'chirilmadi!");
+      });
   };
 
   filterRegion = (id) => {
@@ -181,9 +229,23 @@ export class Projects extends Component {
     }
   };
 
+  filterComments = (id) => {
+    var comment = [];
+    this.state.comments.map((item) => {
+      if (item.project === id) {
+        comment.push(item);
+      }
+    });
+    for (let i = 0; i < comment.length; i++) {
+      comment[i].key = i + 1;
+    }
+    this.setState({ comment: comment, loader: false });
+  };
+
   componentDidMount() {
     this.getProject();
     this.getTuman();
+    this.getComment();
   }
 
   getColumnSearchProps = (dataIndex) => ({
@@ -283,6 +345,48 @@ export class Projects extends Component {
   };
 
   render() {
+    const comments = [
+      {
+        title: "T/r",
+        dataIndex: "key",
+        key: "key",
+        ...this.getColumnSearchProps("key"),
+      },
+      {
+        title: "Izoh qoldiruvchi ismi",
+        dataIndex: "name",
+        key: "name",
+        ...this.getColumnSearchProps("name"),
+      },
+      {
+        title: "Izoh qoldiruvchi elektron pochtasi",
+        dataIndex: "email",
+        key: "email",
+        ...this.getColumnSearchProps("email"),
+      },
+      {
+        title: "Izoh",
+        dataIndex: "comment",
+        key: "comment",
+      },
+      {
+        title: "O'chirish",
+        dataIndex: "id",
+        key: "keyId",
+        render: (id) => {
+          return (
+            <Button
+              type="danger"
+              onDoubleClick={() => {
+                this.deleteComment(id);
+              }}
+            >
+              O'chirish
+            </Button>
+          );
+        },
+      },
+    ];
     const columns = [
       {
         title: "Id",
@@ -328,6 +432,23 @@ export class Projects extends Component {
         },
       },
       {
+        title: "Izohlar",
+        dataIndex: "id",
+        key: "id",
+        render: (id) => {
+          return (
+            <Button
+              type="primary"
+              onClick={() => {
+                this.openCommentModal(id);
+              }}
+            >
+              Izohlar
+            </Button>
+          );
+        },
+      },
+      {
         title: "O'zgartirish",
         dataIndex: "key",
         key: "editKey",
@@ -366,7 +487,8 @@ export class Projects extends Component {
       <div>
         {this.state.loader ? (
           <>
-          <Loader /></>
+            <Loader />
+          </>
         ) : (
           <div>
             <Button type="primary" onClick={this.openModal}>
@@ -415,6 +537,20 @@ export class Projects extends Component {
                     })}
                   </Select>
                 </Form.Group>
+                {this.state.editId !== null ? (
+                  <Form.Group className="mb-3">
+                    <Form.Label>Loyiha yuklab olish soni</Form.Label>
+                    <Form.Control
+                      className="formInput"
+                      onChange={this.changeDownload}
+                      value={this.state.download}
+                      type="number"
+                      min="0"
+                    />
+                  </Form.Group>
+                ) : (
+                  ""
+                )}
                 <br />
                 <br />
                 <Button
@@ -428,6 +564,15 @@ export class Projects extends Component {
                   Bekor qilish
                 </Button>
               </Form>
+            </Modal>
+            <Modal
+              title="Izohlar"
+              visible={this.state.showComment}
+              onCancel={this.closeCommentModal}
+              footer={false}
+              width="70%"
+            >
+              <Table columns={comments} dataSource={this.state.comment} />
             </Modal>
           </div>
         )}
