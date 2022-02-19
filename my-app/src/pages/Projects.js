@@ -15,7 +15,7 @@ const { Option } = Select;
 
 export class Projects extends Component {
   state = {
-    loading: false,
+    loading: true,
     searchText: "",
     searchedColumn: "",
     projects: [],
@@ -55,7 +55,7 @@ export class Projects extends Component {
         for (let i = 0; i < projects.length; i++) {
           projects[i].key = i + 1;
         }
-        this.setState({ projects });
+        this.setState({ projects, loader:false });
       })
       .catch((err) => message.error("Loyihalar topilmadi!"));
   };
@@ -67,6 +67,7 @@ export class Projects extends Component {
   };
 
   saveProject = () => {
+    this.setState({loader:true})
     var data = new FormData();
     if (this.state.editId === null) {
       if (this.state.name === "") {
@@ -88,7 +89,7 @@ export class Projects extends Component {
           this.getProject();
           this.closeModal();
         })
-        .catch((err) => message.error("Ma'lumot saqlanmadi!"));
+        .catch((err) => {message.error("Ma'lumot saqlanmadi!");  this.setState({loader:false})});
     } else {
       if (this.state.name !== this.state.projects[this.state.keyId].name) {
         data.append("name", this.state.name);
@@ -115,14 +116,16 @@ export class Projects extends Component {
           this.getProject();
           this.closeModal();
         })
-        .catch((err) => message.error("Ma'lumot o'zgartirilmadi!"));
+        .catch((err) => {message.error("Ma'lumot o'zgartirilmadi!");  this.setState({loader:false})});
     }
   };
 
   editProject = (id) => {
+
     this.setState({
       editId: this.state.projects[id].id,
       keyId: id,
+      loader:true,
       name: this.state.projects[id].name,
       file: this.state.projects[id].file,
       download:
@@ -138,12 +141,13 @@ export class Projects extends Component {
   };
 
   deleteProject = (id) => {
+    this.setState({loader:true})
     deleteProjects(id)
       .then((res) => {
         message.success("Ma'lumot o'chirildi");
         this.getProject();
       })
-      .catch((err) => message.error("Ma'lumot o'chirilmadi!"));
+      .catch((err) => {message.error("Ma'lumot o'chirilmadi!");  this.setState({loader:false})});
   };
 
   changeFile = (e) => {
