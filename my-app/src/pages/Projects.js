@@ -377,7 +377,7 @@ export class Projects extends Component {
           return (
             <Button
               type="danger"
-              onDoubleClick={() => {
+              onClick={() => {
                 this.deleteComment(id);
               }}
             >
