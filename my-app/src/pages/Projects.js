@@ -58,9 +58,8 @@ export class Projects extends Component {
     this.setState({
       showComment: true,
       commentId: id,
-      loader: true,
     });
-    this.filterComments(id);
+    this.filterComments(this.state.comments, id);
   };
 
   closeCommentModal = () => {
@@ -83,6 +82,9 @@ export class Projects extends Component {
   getComment = () => {
     getComments().then((res) => {
       this.setState({ comments: res.data });
+      if (this.state.commentId !== null) {
+        this.filterComments(res.data, this.state.commentId);
+      }
     });
   };
 
@@ -205,9 +207,10 @@ export class Projects extends Component {
     deleteComments(id)
       .then((res) => {
         this.getComment();
-        this.closeCommentModal();
-        message.success("Izoh o'chirildi");
-        this.setState({ loader: false });
+        setTimeout(() => {
+          message.success("Izoh o'chirildi");
+          this.setState({ loader: false });
+        }, 1500);
       })
       .catch((err) => {
         this.setState({ loader: false });
@@ -229,9 +232,9 @@ export class Projects extends Component {
     }
   };
 
-  filterComments = (id) => {
+  filterComments = (comments, id) => {
     var comment = [];
-    this.state.comments.map((item) => {
+    comments.map((item) => {
       if (item.project === id) {
         comment.push(item);
       }
@@ -239,7 +242,17 @@ export class Projects extends Component {
     for (let i = 0; i < comment.length; i++) {
       comment[i].key = i + 1;
     }
-    this.setState({ comment: comment, loader: false });
+    this.setState({ comment: comment });
+  };
+
+  filterCommentsNumber = (comments, id) => {
+    var number = 0;
+    comments.map((item) => {
+      if (item.project === id) {
+        number++;
+      }
+    });
+    return number;
   };
 
   componentDidMount() {
@@ -432,7 +445,7 @@ export class Projects extends Component {
         },
       },
       {
-        title: "Izohlar",
+        title: "Izohlar (soni)",
         dataIndex: "id",
         key: "id",
         render: (id) => {
@@ -443,7 +456,7 @@ export class Projects extends Component {
                 this.openCommentModal(id);
               }}
             >
-              Izohlar
+              Izohlar ({this.filterCommentsNumber(this.state.comments, id)})
             </Button>
           );
         },
