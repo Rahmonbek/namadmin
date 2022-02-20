@@ -109,7 +109,7 @@ export class Projects extends Component {
       data.append("download", this.state.download);
       data.append(
         "region",
-        this.state.selectKey !== 0 ? this.state.selectKey : null
+        this.state.selectKey !== 0 ? this.state.selectKey : ""
       );
       createProjects(data)
         .then((res) => {
@@ -134,12 +134,22 @@ export class Projects extends Component {
         data.append("download", this.state.download);
       }
       if (
-        this.state.selectKey !== this.state.projects[this.state.keyId].region
+        Number(this.state.selectKey) !==
+        this.state.projects[this.state.keyId].region
       ) {
-        data.append(
-          "region",
-          this.state.selectKey !== 0 ? this.state.selectKey : null
-        );
+        if (this.state.projects[this.state.keyId].region !== null) {
+          if (Number(this.state.selectKey) !== 0) {
+            data.append("region", this.state.selectKey);
+          } else {
+            data.append("region", "");
+          }
+        } else {
+          if (Number(this.state.selectKey) !== 0) {
+            data.append("region", this.state.selectKey);
+          } else {
+            data.append("region", "");
+          }
+        }
       }
       editProjects(data, this.state.editId)
         .then((res) => {
