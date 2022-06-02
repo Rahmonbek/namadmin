@@ -105,7 +105,14 @@ if(this.state.edit===null){
                            <select id="type" style={{width:'100%', outline:'none', fontSize:'16px', padding:'5px', backgroundColor:'white'}}>
     <option value="1">Ta'limga oid qonunlar</option>
     <option value="2">Prezident farmonlari, farmoyishlari va qarorlari</option>
-      <option value="3">O`quvchilar uchun</option>
+      <option value="3">O`quvchilar uchun qarorlar</option>
+      <option value="4">Xalq ta'limi vazirligi Hay'at qarorlari </option>
+      <option value="5">Xalq ta'limi vazirligi me'yoriy hujjatlari </option>
+      <option value="6">O'z kuchini yo'qotgan me'yoriy-huquqiy hujjatlar</option>
+      <option value="7">Me'yoriy hujjatlar loyihalari </option>
+      <option value="8">Ta'limga oid normativ-huquqiy hujjatlar</option>
+      <option value="9">Vazirlik ishtirokidagi Xalqaro shartnomalar</option>
+      <option value="10">Davlat tiliga oid normativ-huquqiy hujjatlar</option>
 </select>
 <br/><br/>
                            
