@@ -113,6 +113,10 @@ if(this.state.edit===null){
       <option value="8">Ta'limga oid normativ-huquqiy hujjatlar</option>
       <option value="9">Vazirlik ishtirokidagi Xalqaro shartnomalar</option>
       <option value="10">Davlat tiliga oid normativ-huquqiy hujjatlar</option>
+
+
+
+     
 </select>
 <br/><br/>
                            
